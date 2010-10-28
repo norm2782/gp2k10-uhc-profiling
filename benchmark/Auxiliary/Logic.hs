@@ -24,7 +24,7 @@ data Logic = Var String
            | Equiv Logic Logic            -- equivalence
            | Conj  Logic Logic            -- and (conjunction)
            | Disj  Logic Logic            -- or (disjunction)
-  deriving (Show, Eq)  -- removed Typeable
+  deriving (Show)  -- removed Typeable
 
 
 -- Encode a Logic expression

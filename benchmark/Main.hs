@@ -179,10 +179,13 @@ allTests =    handTests ++ emgmTests
 --               testName t == Update || testName t == Map || testName t == Enum ] -}
 --
 
-derivedTests = [ Test Derived Eq     Tree
-               , Test Derived Eq     Logic]
+derivedTests = [ Test Derived Eq Tree
+               , Test Derived Eq Logic]
 
-tests = [t | t <- derivedTests] -- test THAT benchmark!
+ungenericTests = [ Test Hand Eq Tree
+                 , Test Hand Eq Logic]
+
+tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
