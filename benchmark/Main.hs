@@ -28,6 +28,7 @@ data Library = Hand          -- Handwritten code
              | RegularDeep   -- a version of regular-0.1 with deep encodings
              | Instant       -- instant-generics-0.1
              | InstantInline -- instant-generics-0.1 with INLINE pragmas
+             | Derived       -- derived instances in UHC
                 deriving (Eq, Ord, Show)
 
 data TestName = Eq 
@@ -47,7 +48,6 @@ data Test = Test { lib :: Library,
 
 data Datatype = Tree    -- Labelled binary trees
               | Logic   -- Logic expressions
-              | Pair    -- a pair
                 deriving (Eq, Ord, Show)
 
 
@@ -179,12 +179,10 @@ allTests =    handTests ++ emgmTests
 --               testName t == Update || testName t == Map || testName t == Enum ] -}
 --
 
-handEQtests = [ Test Hand Eq     Tree  -- only tree for starters
-              , Test Hand Eq     Logic]
+derivedTests = [ Test Derived Eq     Tree
+               , Test Derived Eq     Logic]
 
-newTests = [Test Hand Eq Pair]
-
-tests = [t | t <- handEQtests] -- test THAT benchmark!
+tests = [t | t <- derivedTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
@@ -270,7 +268,7 @@ myArgs = [
           Arg { argIndex = C,
                 argAbbr = Just 'c',
                 argName = Just "path-to-ghc",
-                argData = argDataDefaulted "path" ArgtypeString "uhc",  -- uhc
+                argData = argDataDefaulted "path" ArgtypeString "uhc ",  -- uhc
                 argDesc = "Path to GHC (defaults to \"ghc\")"
               },
           Arg { argIndex = H,
@@ -337,11 +335,8 @@ main = do
                          ++ show (testName t) 
                          ++ ".Main.main" ++ show (datatype t)
                          ++ " -o " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
-            uhcmainis t = "-main-is " ++ show (lib t) ++ "." 
-                         ++ show (testName t) 
-                         ++ ".Main.main" ++ show (datatype t)
-                         ++ " -odir " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
             path t = show (lib t) </> show (testName t) </> "Main"
+            testPath t = show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
             out t = "out" </> show (lib t) ++ "." ++ show (testName t) ++ "." 
                       ++ show (datatype t) ++ ".compileout"
             redirect t = " > " ++ out t ++ " 2>&1 "
@@ -349,8 +344,8 @@ main = do
             -- cmd t = ghc ++ flags ++ mainis t ++ path t ++ redirect t
 
             cmd t =  ghc       -- this is actually uhc
-                  -- ++ uhcflags  -- some verbose flags
-                  -- ++ uhcmainis t
+            --      ++ uhcflags  -- some flags
+                  ++ testPath t  -- path to the test file
         
         -- Display usage information
         when help $ usageError args ""
