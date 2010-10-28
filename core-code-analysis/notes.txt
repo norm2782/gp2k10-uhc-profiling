@@ -1,0 +1,15 @@
+Viewed with Apple FileMerge 2.5
+
+Generic code: 
+- No differences between the final pass (16) of O0, O1 and O2.
+- 27 differences between those and the final pass of O3 (17).
+
+Non-generic code:
+- No differences between the final pass (16) of O0, O1 and O2.
+- 24 differences between those and the final pass of O3 (17).
+
+Compared:
+- On O0-O2, 75 diffs between generic and non-generic.
+- On O3, there are 86 differences between generic and non-generic.
+- Generic 17: 398 LOC, non-generic 17: 405 LOC
+- Generic 16: 266 LOC, non-generic 16: 273 LOC
