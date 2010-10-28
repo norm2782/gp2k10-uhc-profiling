@@ -16,4 +16,4 @@ Compared:
 
 Observations:
 - Even after the final Grin stage on O3, generic representations and embedding projection pairs are still present in the Grin code, while these are not present in the specific code.
-- Without NoGenericDeriving, the non-generic code still contains embedding projection pairs and representations after Grin on O3, even though these are never used in the program. (mostly space issue, probably won't affect performance, since they're never used).
+- Without NoGenericDeriving, the non-generic code still contains embedding projection pairs and representations after Grin on O3, even though these are never used in the program. (mostly space issue, probably won't affect performance, since they're never used).	
