@@ -1,3 +1,7 @@
 *.grin
 *.core*
 *hs-O*
+*.c
+*.hi
+*.o
+*.compileout

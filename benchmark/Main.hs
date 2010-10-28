@@ -330,7 +330,9 @@ main = do
                     ++ " -outputdir out "
             uhcflags =  " -v=4 "         -- be verbose
                      ++ "--no-recomp "   -- force recompilation
-                     ++ "--odir=out "     -- set the output directory to out
+                     -- odir implies --compile-only which makes it useless for
+                     -- our purposes
+            --         ++ "--odir=out "     -- set the output directory to out
             mainis t = "-main-is " ++ show (lib t) ++ "." 
                          ++ show (testName t) 
                          ++ ".Main.main" ++ show (datatype t)
@@ -343,9 +345,10 @@ main = do
             -- command-line call to ghc/uhc is placed here
             -- cmd t = ghc ++ flags ++ mainis t ++ path t ++ redirect t
 
-            cmd t =  ghc       -- this is actually uhc
-            --      ++ uhcflags  -- some flags
+            cmd t =  ghc         -- this is actually uhc
+                  ++ uhcflags    -- some flags
                   ++ testPath t  -- path to the test file
+                  ++ redirect t  -- put compiler output into out/
         
         -- Display usage information
         when help $ usageError args ""
@@ -370,7 +373,8 @@ main = do
                           ++ "." ++ show (datatype t) ++ "." ++ show m ++ ".out"
             newpath t = show (lib t) </> show (testName t) </> "Main" 
                           ++ show (lib t) ++ show (testName t) ++ show (datatype t)
-            run t m =    newpath t 
+            uhcnewpath t = show (lib t) </> show (testName t) </> show (datatype t)
+            run t m = uhcnewpath t 
 --                      ++ " +RTS -K32M " ++ if profiling then " -p " else "" ++ " -RTS"
                       ++ " > " 
                       ++ newout t m
