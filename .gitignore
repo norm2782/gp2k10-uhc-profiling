@@ -1,3 +1,6 @@
 *.grin
 *.core*
 *hs-O*
+\#*\#
+*.lyx~
+*.swp
