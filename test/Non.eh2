@@ -1,0 +1,8 @@
+let data Test.Foo  = Test.Bar Int
+ in
+let instance Test.Eq_@1DCT_@1_0_0 <: {! UHC.Base.Eq Test.Foo !} where {- InstNormal -}
+      UHC.Base.==
+        = \(Test.Bar x) (Test.Bar y)
+            -> (UHC.Base.== x y)
+ in
+0
