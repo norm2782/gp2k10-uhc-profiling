@@ -1,0 +1,34 @@
+Template LHS 
+    GuiName "LHS: $$AbsOrRelPathParent$$Basename"
+    HelpText
+        Including Literate Haskell
+    HelpTextEnd
+    InputFormat lhs
+    FileFilter "*.lhs"
+    AutomaticProduction true
+    Format LaTeX
+        Product "\\input{$$AbsOrRelPathMaster$$Basename.tex}"
+        UpdateFormat pdflatex
+        UpdateResult "$$AbsPath$$Basename.tex"
+        ReferencedFile lhs "$$AbsPath$$Basename.tex"
+    FormatEnd
+    Format PDFLaTeX
+        Product "\\input{$$AbsOrRelPathMaster$$Basename.tex}"
+        UpdateFormat pdflatex
+        UpdateResult "$$AbsPath$$Basename.tex"
+        ReferencedFile lhs "$$AbsPath$$Basename.tex"
+    FormatEnd
+    Format Ascii
+        Product "\\input{$$AbsOrRelPathMaster$$Basename.tex}"
+        UpdateFormat pdflatex
+        UpdateResult "$$AbsPath$$Basename.tex"
+        ReferencedFile lhs "$$AbsPath$$Basename.tex"
+    FormatEnd
+    Format DocBook
+        Product "\\input{$$AbsOrRelPathMaster$$Basename.tex}"
+        UpdateFormat pdflatex
+        UpdateResult "$$AbsPath$$Basename.tex"
+        ReferencedFile lhs "$$AbsPath$$Basename.tex"
+    FormatEnd
+TemplateEnd
+
