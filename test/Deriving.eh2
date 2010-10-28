@@ -1,8 +1,0 @@
-let data Test.Foo  = Test.Bar Int
- in
-let generic 0 Test.Foo
-            Test.Bar
- in
-let instance Test.1_0_0 <: {! UHC.Base.Eq (Test.Foo) !} where {- InstDeriving InstDerivingFrom_Datatype -}
- in
-0
