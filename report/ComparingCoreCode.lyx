@@ -3,9 +3,6 @@
 \begin_document
 \begin_header
 \textclass article
-\begin_preamble
-\usepackage{lhs2tex}
-\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -27,18 +24,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
-\spacing single
-\use_hyperref true
-\pdf_title "Benchmarking Generics in UHC"
-\pdf_bookmarks true
-\pdf_bookmarksnumbered false
-\pdf_bookmarksopen false
-\pdf_bookmarksopenlevel 1
-\pdf_breaklinks false
-\pdf_pdfborder false
-\pdf_colorlinks false
-\pdf_backref false
-\pdf_pdfusetitle true
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -70,18 +56,8 @@
 
 \begin_body
 
-\begin_layout Title
-Benchmarking Generics in UHC
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand include
-filename "ComparingCoreCode.lyx"
-
-\end_inset
-
-
+\begin_layout Section
+Comparing Core Code
 \end_layout
 
 \end_body
