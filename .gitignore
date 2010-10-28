@@ -5,3 +5,6 @@
 *.hi
 *.o
 *.compileout
+\#*\#
+*.lyx~
+*.swp

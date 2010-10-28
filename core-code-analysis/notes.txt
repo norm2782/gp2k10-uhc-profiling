@@ -13,3 +13,7 @@ Compared:
 - On O3, there are 86 differences between generic and non-generic.
 - Generic 17: 398 LOC, non-generic 17: 405 LOC
 - Generic 16: 266 LOC, non-generic 16: 273 LOC
+
+Observations:
+- Even after the final Grin stage on O3, generic representations and embedding projection pairs are still present in the Grin code, while these are not present in the specific code.
+- Without NoGenericDeriving, the non-generic code still contains embedding projection pairs and representations after Grin on O3, even though these are never used in the program. (mostly space issue, probably won't affect performance, since they're never used).	

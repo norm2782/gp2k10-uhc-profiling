@@ -1,0 +1,41 @@
+This the equality function that is used by UHC when using generic deriving. 
+
+Found in: ehc/uhcbase/UHCBase.chs, line 2417
+
+
+%%[99
+--------------------------------------------------------------------------------
+-- Generic Eq
+--------------------------------------------------------------------------------
+
+class Eq' f where
+  geq' :: f a -> f a -> Bool
+
+instance Eq' U1 where
+  geq' _ _ = True
+
+instance (Eq c) => Eq' (K1 i c) where
+  geq' (K1 a) (K1 b) = a == b
+
+-- No instances for P or Rec because geq is only applicable to types of kind *
+
+instance (Eq' a) => Eq' (M1 i c a) where
+  geq' (M1 a) (M1 b) = geq' a b
+
+instance (Eq' a, Eq' b) => Eq' (a :+: b) where
+  geq' (L1 a) (L1 b) = geq' a b
+  geq' (R1 a) (R1 b) = geq' a b
+  geq' _      _      = False
+
+instance (Eq' a, Eq' b) => Eq' (a :*: b) where
+  geq' (a1 :*: b1) (a2 :*: b2) = geq' a1 a2 && geq' b1 b2
+
+{-# DERIVABLE Eq (==) geqdefault #-}
+-- deriving instance (Eq a) => Eq (Maybe a)
+deriving instance (Eq a) => Eq [a]
+
+geqdefault :: (Representable0 a rep0, Eq' rep0) => rep0 x -> a -> a -> Bool
+geqdefault (rep :: r) x y = geq' (from0 x :: r) (from0 y :: r)
+%%]
+
+%%[99
