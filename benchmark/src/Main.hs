@@ -39,6 +39,7 @@ data TestName = Eq
               | Arbitrary   -- QuickCheck's (1.2)
               | Enum
               | Decode
+              | Id
                  deriving (Eq, Ord, Show)
 
 data Test = Test { lib :: Library,
@@ -180,10 +181,12 @@ allTests =    handTests ++ emgmTests
 --
 
 derivedTests = [ Test Derived Eq Tree
-               , Test Derived Eq Logic]
+               , Test Derived Eq Logic
+               , Test Derived Id Tree]
 
 ungenericTests = [ Test Hand Eq Tree
-                 , Test Hand Eq Logic]
+                 , Test Hand Eq Logic
+                 , Test Hand Id Tree]
 
 tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 
