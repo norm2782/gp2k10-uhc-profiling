@@ -8,3 +8,4 @@
 \#*\#
 *.lyx~
 *.swp
+.DS_Store
