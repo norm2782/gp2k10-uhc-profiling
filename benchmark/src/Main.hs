@@ -340,8 +340,8 @@ main = do
                          ++ show (testName t) 
                          ++ ".Main.main" ++ show (datatype t)
                          ++ " -o " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
-            path t = show (lib t) </> show (testName t) </> "Main"
-            testPath t = show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
+            path t = "src" </> show (lib t) </> show (testName t) </> "Main"
+            testPath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
             out t = "out" </> show (lib t) ++ "." ++ show (testName t) ++ "." 
                       ++ show (datatype t) ++ ".compileout"
             redirect t = " > " ++ out t ++ " 2>&1 "
@@ -374,9 +374,9 @@ main = do
         -- Running tests
         let newout t m = "out" </> show (lib t) ++ "." ++ show (testName t) 
                           ++ "." ++ show (datatype t) ++ "." ++ show m ++ ".out"
-            newpath t = show (lib t) </> show (testName t) </> "Main" 
+            newpath t = "src" </> show (lib t) </> show (testName t) </> "Main" 
                           ++ show (lib t) ++ show (testName t) ++ show (datatype t)
-            uhcnewpath t = show (lib t) </> show (testName t) </> show (datatype t)
+            uhcnewpath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t)
             run t m = uhcnewpath t 
 --                      ++ " +RTS -K32M " ++ if profiling then " -p " else "" ++ " -RTS"
                       ++ " > " 
