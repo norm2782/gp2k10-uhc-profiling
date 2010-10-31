@@ -8,7 +8,7 @@ import System.Console.ParseArgs
 import System.CPUTime (cpuTimePrecision)
 import Data.List (groupBy, sortBy, intersperse)
 import System.FilePath ((</>), takeExtension)
-import System.Directory (getDirectoryContents, removeFile)
+import System.Directory (getDirectoryContents, removeFile, createDirectoryIfMissing)
 import System.Cmd (system)
 import System.IO
   (hPutStrLn, Handle, IOMode(..), stdout, hFlush, hIsEOF, hGetChar, hClose,
@@ -359,6 +359,10 @@ main = do
         -- Sanity check
         when (profiling && binsize) $ do
           usageError args "Cannot profile and compute binary sizes."
+        
+        -- Create an output directory
+        putStrLn "Create output directory if necessary..." >> hFlush stdout
+        createDirectoryIfMissing True "out"
         
         -- Compilation
         putStrLn "Compiling..." >> hFlush stdout
