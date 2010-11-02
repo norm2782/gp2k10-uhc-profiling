@@ -18,6 +18,8 @@ import System.Info (os, arch, compilerVersion)
 import Control.Monad (when)
 
 data Library = Hand          -- Handwritten code
+             | HandGenericDeriving  -- Handwritten code but with the 
+                                    -- GenericDeriving flag on
              | EMGM          -- emgm-0.3.1
              | SYB           -- syb-0.1
              | SYBInline     -- syb-0.1 with inlining tricks
@@ -184,6 +186,9 @@ derivedTests = [ Test Derived Eq Tree
 
 ungenericTests = [ Test Hand Eq Tree
                  , Test Hand Eq Logic]
+                 
+handGenericDerivingTests = [ Test HandGenericDeriving Eq Tree
+                           , Test HandGenericDeriving Eq Logic]
 
 tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 
