@@ -8,7 +8,7 @@ import System.Console.ParseArgs
 import System.CPUTime (cpuTimePrecision)
 import Data.List (groupBy, sortBy, intersperse)
 import System.FilePath ((</>), takeExtension)
-import System.Directory (getDirectoryContents, removeFile)
+import System.Directory (getDirectoryContents, removeFile, createDirectoryIfMissing)
 import System.Cmd (system)
 import System.IO
   (hPutStrLn, Handle, IOMode(..), stdout, hFlush, hIsEOF, hGetChar, hClose,
@@ -41,6 +41,7 @@ data TestName = Eq
               | Arbitrary   -- QuickCheck's (1.2)
               | Enum
               | Decode
+              | Id
                  deriving (Eq, Ord, Show)
 
 data Test = Test { lib :: Library,
@@ -182,13 +183,12 @@ allTests =    handTests ++ emgmTests
 --
 
 derivedTests = [ Test Derived Eq Tree
-               , Test Derived Eq Logic]
+               , Test Derived Eq Logic
+               , Test Derived Id Tree]
 
 ungenericTests = [ Test Hand Eq Tree
-                 , Test Hand Eq Logic]
-                 
-handGenericDerivingTests = [ Test HandGenericDeriving Eq Tree
-                           , Test HandGenericDeriving Eq Logic]
+                 , Test Hand Eq Logic
+                 , Test Hand Id Tree]
 
 tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 
@@ -345,8 +345,8 @@ main = do
                          ++ show (testName t) 
                          ++ ".Main.main" ++ show (datatype t)
                          ++ " -o " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
-            path t = show (lib t) </> show (testName t) </> "Main"
-            testPath t = show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
+            path t = "src" </> show (lib t) </> show (testName t) </> "Main"
+            testPath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
             out t = "out" </> show (lib t) ++ "." ++ show (testName t) ++ "." 
                       ++ show (datatype t) ++ ".compileout"
             redirect t = " > " ++ out t ++ " 2>&1 "
@@ -365,6 +365,10 @@ main = do
         when (profiling && binsize) $ do
           usageError args "Cannot profile and compute binary sizes."
         
+        -- Create an output directory
+        putStrLn "Create output directory if necessary..." >> hFlush stdout
+        createDirectoryIfMissing True "out"
+        
         -- Compilation
         putStrLn "Compiling..." >> hFlush stdout
         --sequence_ [ putStrLn (cmd t) | t <- tests ]
@@ -379,9 +383,9 @@ main = do
         -- Running tests
         let newout t m = "out" </> show (lib t) ++ "." ++ show (testName t) 
                           ++ "." ++ show (datatype t) ++ "." ++ show m ++ ".out"
-            newpath t = show (lib t) </> show (testName t) </> "Main" 
+            newpath t = "src" </> show (lib t) </> show (testName t) </> "Main" 
                           ++ show (lib t) ++ show (testName t) ++ show (datatype t)
-            uhcnewpath t = show (lib t) </> show (testName t) </> show (datatype t)
+            uhcnewpath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t)
             run t m = uhcnewpath t 
 --                      ++ " +RTS -K32M " ++ if profiling then " -p " else "" ++ " -RTS"
                       ++ " > " 

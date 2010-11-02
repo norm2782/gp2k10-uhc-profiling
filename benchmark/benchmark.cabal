@@ -1,0 +1,14 @@
+Name:           benchmark
+Version:        0.1
+Cabal-Version:  >= 1.2
+Build-Type:     Simple
+
+Executable benchmark
+  Build-Depends:  base      >= 4.2
+                , parseargs == 0.1.3
+                , process   == 1.0.1.3
+                , directory == 1.0.1.1
+                , filepath  == 1.1.0.4
+                
+  Main-Is:        Main.hs
+  Hs-Source-Dirs: src/
