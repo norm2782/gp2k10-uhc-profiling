@@ -182,11 +182,13 @@ allTests =    handTests ++ emgmTests
 
 derivedTests = [ Test Derived Eq Tree
                , Test Derived Eq Logic
-               , Test Derived Id Tree]
+               --, Test Derived Id Tree
+               ]
 
 ungenericTests = [ Test Hand Eq Tree
                  , Test Hand Eq Logic
-                 , Test Hand Id Tree]
+                 --, Test Hand Id Tree
+                 ]
 
 tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 
