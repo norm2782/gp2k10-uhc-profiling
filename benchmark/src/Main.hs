@@ -128,8 +128,8 @@ myArgs = [
               },
           Arg { argIndex = F,
                 argAbbr = Just 'f',
-                argName = Just "ghc-flags",
-                argData = argDataDefaulted "flags" ArgtypeString "",
+                argName = Just "uhc-flags",
+                argData = argDataDefaulted "uhcflags" ArgtypeString "",
                 argDesc = "Flags to pass to the compiler"
               },
           Arg { argIndex = P,
@@ -203,12 +203,14 @@ main = do
             help      = gotArg args H
             n :: Int
             n          = if profiling then 1 else (getRequiredArg args N)
-            ghc        = getRequiredArg args C
+            uhc        = getRequiredArg args C
             flags      = " -fforce-recomp --make " ++ getRequiredArg args F ++ " "
                        ++ (if profiling then " -prof -auto-all " else "")
                        ++ " -outputdir out "
-            uhcflags   =  " -v=4 "         -- be verbose
-                       ++ "--no-recomp "   -- force recompilation
+            uhcflags   =  " -v=4 "               -- be verbose
+                       ++ "--no-recomp "         -- force recompilation
+                       ++ getRequiredArg args F  -- get additonal cmd line flags
+                       ++ " "
                           -- odir implies --compile-only which makes it useless for
                           -- our purposes
                           -- ++ "--odir=out "     -- set the output directory to out
@@ -224,7 +226,7 @@ main = do
             -- command-line call to ghc/uhc is placed here
             -- cmd t = ghc ++ flags ++ mainis t ++ path t ++ redirect t
 
-            cmd t =  ghc         -- this is actually uhc
+            cmd t =  uhc
                   ++ uhcflags    -- some flags
                   ++ testPath t  -- path to the test file
                   ++ redirect t  -- put compiler output into out/
