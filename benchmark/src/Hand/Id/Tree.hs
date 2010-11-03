@@ -12,7 +12,7 @@ data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
 
 
 main :: IO ()
-main = test . putStr . show $ id bigTree
+main = test . putStr . show $ seq (id bigTree) "Tree is evaluated!"
 
 
 genTree :: [Int] -> Tree Int

@@ -11,7 +11,7 @@ import Auxiliary.Auxiliary (test)
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
 
 main :: IO ()
-main = test . putStr . show $ gid bigTree
+main = test . putStr . show $ seq (gid bigTree) "Evaluated bigTree generically"
 
 
 genTree :: [Int] -> Tree Int
