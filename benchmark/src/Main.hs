@@ -339,7 +339,7 @@ main = do
             uhcflags =  " -v=4 "         -- be verbose
                      ++ "--no-recomp "   -- force recompilation
                      -- odir implies --compile-only which makes it useless for
-                     -- our purposes
+                     -- our purposes, since we need the executables
             --         ++ "--odir=out "     -- set the output directory to out
             mainis t = "-main-is " ++ show (lib t) ++ "." 
                          ++ show (testName t) 
