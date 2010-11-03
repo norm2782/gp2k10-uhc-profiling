@@ -259,16 +259,7 @@ main = do
           putStrLn "Running tests..." >> hFlush stdout
           --sequence_ [ putStrLn (run t m) | t <- tests, m <- [1..n]]
           sequenceProgress_ [ system (run t m) | t <- tests, m <- [1..n]]
-        
-        -- Calculating binary size
-        let filename t = newpath t ++ ".exe" -- TODO: this is not portable!
-            size s = do 
-                       h' <- openFile s ReadMode
-                       x <- hFileSize h'
-                       hClose h'
-                       return (fromInteger x)
-            sizes  = sequence [ size (filename t) | t <- tests ]
-
+       
         -- Results output
         h <- getArgStdio args O WriteMode
         putStrLn ("-------------------------------------")
@@ -287,7 +278,7 @@ main = do
                                         return ((a,b,c'):t')
         case (profiling, binsize) of
           (True , False) -> hPutStrLn h ("Profiling run, no benchmarking results.")
-          (False, True)  -> sizes >>= \l -> printGroupStats h (return [ (t,1,s) | (t,s) <- zip tests l ])
+          (False, True)  -> printGroupStats h (liftIOList [ (t, m, parse t m) | t <- tests, m <- [1..n]])
           (False, False) -> printGroupStats h (liftIOList [ (t, m, parse t m) | t <- tests, m <- [1..n]])
           (True , True)  -> error "Internal error #1 (can never happen)"
         hPutStrLn h ("-------------------------------------")
