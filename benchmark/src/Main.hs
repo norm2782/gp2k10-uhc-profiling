@@ -29,7 +29,7 @@ data Library = Hand          -- Handwritten code
              | Instant       -- instant-generics-0.1
              | InstantInline -- instant-generics-0.1 with INLINE pragmas
              | Derived       -- derived instances in UHC
-                deriving (Eq, Ord, Show)
+             deriving (Eq, Ord, Show)
 
 data TestName = Eq 
               | Map 
@@ -40,145 +40,16 @@ data TestName = Eq
               | Enum
               | Decode
               | Id
-                 deriving (Eq, Ord, Show)
+              deriving (Eq, Ord, Show)
 
-data Test = Test { lib :: Library,
+data Test = Test { lib      :: Library,
                    testName :: TestName,
                    datatype :: Datatype
                  } deriving (Eq, Ord, Show)
 
 data Datatype = Tree    -- Labelled binary trees
               | Logic   -- Logic expressions
-                deriving (Eq, Ord, Show)
-
-
-handTests, emgmTests, sybTests, sybInlineTests, syb3Tests, multirecTests,
-  regularTests, regularInlineTests, allTests, instantTests, instantInlineTests,
-  tests :: [Test]
-handTests = [ Test Hand Eq     Tree
-            , Test Hand Map    Tree
-            , Test Hand Read   Tree
-            , Test Hand Show   Tree
-            , Test Hand Update Tree
-            , Test Hand Enum   Tree
-            , Test Hand Decode Tree
-            , Test Hand Eq     Logic
-            , Test Hand Read   Logic
-            , Test Hand Show   Logic
-            , Test Hand Update Logic
-            , Test Hand Enum   Logic
-            , Test Hand Decode Logic]
-            
-emgmTests = [ Test EMGM Eq     Tree
-            , Test EMGM Map    Tree
-            , Test EMGM Read   Tree
-            , Test EMGM Show   Tree
-            , Test EMGM Update Tree
-            , Test EMGM Enum   Tree
-            , Test EMGM Eq     Logic
-            , Test EMGM Read   Logic
-            , Test EMGM Show   Logic
-            , Test EMGM Update Logic
-            , Test EMGM Enum   Logic]
-
-sybTests = [ Test SYB Eq     Tree
-           , Test SYB Map    Tree
-           , Test SYB Read   Tree
-           , Test SYB Show   Tree
-           , Test SYB Update Tree
-           , Test SYB Enum   Tree
-           , Test SYB Eq     Logic
-           , Test SYB Read   Logic
-           , Test SYB Show   Logic
-           , Test SYB Update Logic
-           , Test SYB Enum   Logic]
-
-sybInlineTests = [ --Test SYBInline Eq     Tree
-                 --, Test SYBInline Map    Tree
-                 --, Test SYBInline Read   Tree
-                   Test SYBInline Show   Tree
-                 , Test SYBInline Update Tree
-                 --, Test SYBInline Enum   Tree
-                 --, Test SYBInline Eq     Logic
-                 --, Test SYBInline Read   Logic
-                 , Test SYBInline Show   Logic
-                 , Test SYBInline Update Logic
-                 --, Test SYBInline Enum   Logic
-                 ]
-
-syb3Tests = [ Test SYB3 Eq     Tree
-            , Test SYB3 Map    Tree
-            --, Test SYB3 Read   Tree
-            , Test SYB3 Show   Tree
-            , Test SYB3 Update Tree
-            , Test SYB3 Eq     Logic
-            --, Test SYB3 Read   Logic
-            , Test SYB3 Show   Logic
-            , Test SYB3 Update Logic]
-
-multirecTests = [ Test MultiRec Eq     Tree
-                , Test MultiRec Show   Tree
-                , Test MultiRec Read   Tree
-                , Test MultiRec Update Tree
-                , Test MultiRec Eq     Logic
-                , Test MultiRec Show   Logic
-                -- , Test MultiRec Read   Logic
-                , Test MultiRec Update Logic]
-               
-regularTests = [ Test Regular Eq     Tree
-               , Test Regular Show   Tree
-               , Test Regular Read   Tree
-               , Test Regular Update Tree
-               , Test Regular Enum   Tree
-               , Test Regular Eq     Logic
-               , Test Regular Show   Logic
-               --, Test Regular Read   Logic
-               , Test Regular Update Logic
-               , Test Regular Enum   Logic]
-
-regularInlineTests = [ Test RegularInline Eq     Tree
-                     , Test RegularInline Show   Tree
-                     , Test RegularInline Read   Tree
-                     , Test RegularInline Update Tree
-                     , Test RegularInline Enum   Tree
-                     , Test RegularInline Eq     Logic
-                     , Test RegularInline Show   Logic
-                     , Test RegularInline Read   Logic
-                     , Test RegularInline Update Logic
-                     , Test RegularInline Enum   Logic ]
-
-instantTests = [ Test Instant Eq     Tree
-               , Test Instant Show   Tree
-               , Test Instant Update Tree
-               , Test Instant Enum   Tree
-               , Test Instant Decode Tree
-               , Test Instant Eq     Logic
-               , Test Instant Show   Logic
-               , Test Instant Update Logic
-               , Test Instant Enum   Logic
-               , Test Instant Decode Logic]
-
-instantInlineTests = [ Test InstantInline Eq     Tree
-                     , Test InstantInline Show   Tree
-                     , Test InstantInline Update Tree
-                     , Test InstantInline Enum   Tree
-                     , Test InstantInline Decode Tree
-                     , Test InstantInline Eq     Logic
-                     , Test InstantInline Show   Logic
-                     , Test InstantInline Update Logic
-                     , Test InstantInline Enum   Logic
-                     , Test InstantInline Decode Logic]
-
-
-allTests =    handTests ++ emgmTests
-           ++ sybTests ++ sybInlineTests ++ syb3Tests ++ multirecTests
-           ++ regularTests ++ regularInlineTests
-           ++ instantTests ++ instantInlineTests
-
--- tests = [ t | t <- handTests ++ regularTests ++ regularInlineTests ++ instantTests ++ instantInlineTests
---             , testName t == Decode ] {-testName t == Show || testName t == Read || testName t == Eq ||
---               testName t == Update || testName t == Map || testName t == Enum ] -}
---
+              deriving (Eq, Ord, Show)
 
 derivedTests = [ Test Derived Eq Tree
                , Test Derived Eq Logic
@@ -193,7 +64,6 @@ tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
 
-
 printGroupStats :: (Enum a, Fractional a, Floating a, Num a)
                 => Handle -> IO [(Test, Int, a)] -> IO ()
 printGroupStats h l = do
@@ -203,15 +73,15 @@ printGroupStats h l = do
       f (t1,_,_) (t2,_,_) = compare t1 t2
       g (t1,_,_) (t2,_,_) = t1 == t2
       
-      --calcAvgStdDev :: [(Test, Int, a)] -> (Test, a, a)
+--      calcAvgStdDev :: [(Test, Int, a)] -> (Test, a, a)
       calcAvgStdDev x = (fst' (head x), avg x, stddev (avg x))
         where
-          avg  l = sum' l / toEnum (length l)
-          avg' l = sum' l / (toEnum (length l) - 1) -- sample standard deviation
+          avg  l   = sum' l / toEnum (length l)
+          avg' l   = sum' l / (toEnum (length l) - 1) -- sample standard deviation
           stddev a = sqrt (avg' [ (t,d,(y - a)^2) | (t,d,y) <- x ])
           fst' (a,_,_) = a
           --sum' :: [(Test, Int, a)] -> a
-          sum' [] = 0
+          sum' []  = 0
           sum' ((_,_,d):ts) = d + sum' ts
       
       --group2 :: [(Test, a, a)] -> [[(Test, a, a)]]
@@ -227,9 +97,6 @@ handleGroup _ [] = error "handleGroup []"
 handleGroup h g  = do
                     let (t,a,d) = head g
                         name = show (testName t) ++ "/" ++ show (datatype t)
-                    --hPutStrLn h ("-------------------------------------")
-                    -- Header
-                    --hPutStrLn h (inCommas ["Test", name])
                     -- First line is different
                     hPutStrLn h (inCommas [name, show (lib t), show a, show d])
                     -- Then the rest
@@ -329,24 +196,24 @@ main = do
             binsize   = gotArg args B
             help      = gotArg args H
             n :: Int
-            n     = if profiling then 1 else (getRequiredArg args N)
-            ghc   = getRequiredArg args C
-            flags = " -fforce-recomp --make " ++ getRequiredArg args F ++ " "
-                    ++ (if profiling then " -prof -auto-all " else "")
-                    ++ " -outputdir out "
-            uhcflags =  " -v=4 "         -- be verbose
-                     ++ "--no-recomp "   -- force recompilation
-                     -- odir implies --compile-only which makes it useless for
-                     -- our purposes
-            --         ++ "--odir=out "     -- set the output directory to out
-            mainis t = "-main-is " ++ show (lib t) ++ "." 
-                         ++ show (testName t) 
-                         ++ ".Main.main" ++ show (datatype t)
-                         ++ " -o " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
-            path t = "src" </> show (lib t) </> show (testName t) </> "Main"
+            n          = if profiling then 1 else (getRequiredArg args N)
+            ghc        = getRequiredArg args C
+            flags      = " -fforce-recomp --make " ++ getRequiredArg args F ++ " "
+                       ++ (if profiling then " -prof -auto-all " else "")
+                       ++ " -outputdir out "
+            uhcflags   =  " -v=4 "         -- be verbose
+                       ++ "--no-recomp "   -- force recompilation
+                          -- odir implies --compile-only which makes it useless for
+                          -- our purposes
+                          -- ++ "--odir=out "     -- set the output directory to out
+            mainis t   = "-main-is " ++ show (lib t) ++ "." 
+                       ++ show (testName t) 
+                       ++ ".Main.main" ++ show (datatype t)
+                       ++ " -o " ++ path t ++ show (lib t) ++ show (testName t) ++ show (datatype t) ++ " "
+            path t     = "src" </> show (lib t) </> show (testName t) </> "Main"
             testPath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t) ++ ".hs"
-            out t = "out" </> show (lib t) ++ "." ++ show (testName t) ++ "." 
-                      ++ show (datatype t) ++ ".compileout"
+            out t      = "out" </> show (lib t) ++ "." ++ show (testName t) ++ "." 
+                       ++ show (datatype t) ++ ".compileout"
             redirect t = " > " ++ out t ++ " 2>&1 "
             -- command-line call to ghc/uhc is placed here
             -- cmd t = ghc ++ flags ++ mainis t ++ path t ++ redirect t
@@ -379,15 +246,15 @@ main = do
         mapM removeFile (map ("out" </>) filesToDelete)
         
         -- Running tests
-        let newout t m = "out" </> show (lib t) ++ "." ++ show (testName t) 
-                          ++ "." ++ show (datatype t) ++ "." ++ show m ++ ".out"
-            newpath t = "src" </> show (lib t) </> show (testName t) </> "Main" 
-                          ++ show (lib t) ++ show (testName t) ++ show (datatype t)
+        let newout t m   = "out" </> show (lib t) ++ "." ++ show (testName t) 
+                         ++ "." ++ show (datatype t) ++ "." ++ show m ++ ".out"
+            newpath t    = "src" </> show (lib t) </> show (testName t) </> "Main" 
+                         ++ show (lib t) ++ show (testName t) ++ show (datatype t)
             uhcnewpath t = "src" </> show (lib t) </> show (testName t) </> show (datatype t)
             run t m = uhcnewpath t 
---                      ++ " +RTS -K32M " ++ if profiling then " -p " else "" ++ " -RTS"
-                      ++ " > " 
-                      ++ newout t m
+                --  ++ " +RTS -K32M " ++ if profiling then " -p " else "" ++ " -RTS"
+                    ++ " > " 
+                    ++ newout t m
         when (not binsize) $ do
           putStrLn "Running tests..." >> hFlush stdout
           --sequence_ [ putStrLn (run t m) | t <- tests, m <- [1..n]]
@@ -400,7 +267,7 @@ main = do
                        x <- hFileSize h'
                        hClose h'
                        return (fromInteger x)
-            sizes = sequence [ size (filename t) | t <- tests ]
+            sizes  = sequence [ size (filename t) | t <- tests ]
 
         -- Results output
         h <- getArgStdio args O WriteMode
@@ -415,13 +282,13 @@ main = do
             parse t m = readFile' (newout t m) >>= return . read . tail . dropWhile (/= '\t')
             liftIOList :: [(a, b, IO c)] -> IO [(a, b, c)]
             liftIOList [] = return []
-            liftIOList ((a,b,c):t) = do  c' <- c
-                                         t' <- liftIOList t
-                                         return ((a,b,c'):t')
+            liftIOList ((a,b,c):t) = do c' <- c
+                                        t' <- liftIOList t
+                                        return ((a,b,c'):t')
         case (profiling, binsize) of
-          (True, False)  -> hPutStrLn h ("Profiling run, no benchmarking results.")
+          (True , False) -> hPutStrLn h ("Profiling run, no benchmarking results.")
           (False, True)  -> sizes >>= \l -> printGroupStats h (return [ (t,1,s) | (t,s) <- zip tests l ])
           (False, False) -> printGroupStats h (liftIOList [ (t, m, parse t m) | t <- tests, m <- [1..n]])
-          (True, True)   -> error "Internal error #1 (can never happen)"
+          (True , True)  -> error "Internal error #1 (can never happen)"
         hPutStrLn h ("-------------------------------------")
         hClose h
