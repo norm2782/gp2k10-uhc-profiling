@@ -65,7 +65,7 @@ ungenericTests = [
 --                 , Test Hand Id Tree
                  ]
 
-tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
+tests = [t | t <- ungenericTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
