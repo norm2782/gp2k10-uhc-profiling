@@ -18,6 +18,8 @@ import System.Info (os, arch, compilerVersion)
 import Control.Monad (when)
 
 data Library = Hand          -- Handwritten code
+             | HandGenericDeriving  -- Handwritten code but with the 
+                                    -- GenericDeriving flag on
              | EMGM          -- emgm-0.3.1
              | SYB           -- syb-0.1
              | SYBInline     -- syb-0.1 with inlining tricks
@@ -54,18 +56,18 @@ data Datatype = Tree    -- Labelled binary trees
 derivedTests = [
                  Test Derived Eq Tree
                , Test Derived Eq Logic
-               --,
-      --          Test Derived Id Tree
+
+--               , Test Derived Id Tree
                ]
 
 ungenericTests = [
                    Test Hand Eq Tree
                  , Test Hand Eq Logic
-                 --,
+
     --              Test Hand Id Tree
                  ]
 
-tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
+tests = [t | t <- ungenericTests ++ derivedTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
@@ -128,8 +130,8 @@ myArgs = [
               },
           Arg { argIndex = F,
                 argAbbr = Just 'f',
-                argName = Just "ghc-flags",
-                argData = argDataDefaulted "flags" ArgtypeString "",
+                argName = Just "uhc-flags",
+                argData = argDataDefaulted "uhcflags" ArgtypeString "",
                 argDesc = "Flags to pass to the compiler"
               },
           Arg { argIndex = P,
@@ -203,12 +205,14 @@ main = do
             help      = gotArg args H
             n :: Int
             n          = if profiling then 1 else (getRequiredArg args N)
-            ghc        = getRequiredArg args C
+            uhc        = getRequiredArg args C
             flags      = " -fforce-recomp --make " ++ getRequiredArg args F ++ " "
                        ++ (if profiling then " -prof -auto-all " else "")
                        ++ " -outputdir out "
-            uhcflags   =  " -v=4 "         -- be verbose
-                       ++ "--no-recomp "   -- force recompilation
+            uhcflags   =  " -v=4 "               -- be verbose
+                       ++ "--no-recomp "         -- force recompilation
+                       ++ getRequiredArg args F  -- get additonal cmd line flags
+                       ++ " "
                           -- odir implies --compile-only which makes it useless for
                           -- our purposes
                           -- ++ "--odir=out "     -- set the output directory to out
@@ -224,7 +228,7 @@ main = do
             -- command-line call to ghc/uhc is placed here
             -- cmd t = ghc ++ flags ++ mainis t ++ path t ++ redirect t
 
-            cmd t =  ghc         -- this is actually uhc
+            cmd t =  uhc
                   ++ uhcflags    -- some flags
                   ++ testPath t  -- path to the test file
                   ++ redirect t  -- put compiler output into out/

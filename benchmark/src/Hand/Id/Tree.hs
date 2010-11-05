@@ -1,4 +1,4 @@
-{-# LANGUAGE NoGenericDeriving #-}
+{--# LANGUAGE NoGenericDeriving #-}
 
 module Hand.Id.Tree where
 
@@ -12,7 +12,11 @@ data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
 
 
 main :: IO ()
+<<<<<<< HEAD
 main = test ((return . show $ id bigTree) >> putStrLn "Tree is evaluated!")
+=======
+main = test . putStr . show $ id bigTree
+>>>>>>> ddba06f03677ecc615094014d445fb3feb119126
 
 
 genTree :: [Int] -> Tree Int

@@ -6,12 +6,18 @@ module Derived.Id.Tree where
 import Derived.Id.Identity
 import System.Random
 import Auxiliary.Auxiliary (test)
+import UHC.Base
 
 -- Tree datatype
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
 
 main :: IO ()
+<<<<<<< HEAD
 main = test ((return . show $ gid bigTree) >> putStrLn "Evaluated bigTree generically")
+=======
+main = test . putStr . show $ gid bigTree
+
+>>>>>>> ddba06f03677ecc615094014d445fb3feb119126
 
 genTree :: [Int] -> Tree Int
 genTree []    = Leaf
