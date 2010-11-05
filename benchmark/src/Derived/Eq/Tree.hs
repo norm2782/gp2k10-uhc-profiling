@@ -10,8 +10,7 @@ import Auxiliary.Auxiliary (test)
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Eq)
 
 main :: IO ()
-main = test . putStr . show $ 
-            (bigTree == bigTree, bigTree == (tweakRightmost bigTree))
+main = test . putStr . show $ (bigTree == bigTree, bigTree == (tweakRightmost bigTree))
 
 -- Tweak the rightmost element of a Tree
 tweakRightmost :: Tree Int -> Tree Int

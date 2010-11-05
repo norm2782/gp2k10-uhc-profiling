@@ -1,6 +1,6 @@
 {-# LANGUAGE GenericDeriving #-}
 
-module Derived.Eq.Tree where
+module Derived.Id.Tree where
 
 -- import Auxiliary.Tree (Tree(..), bigTree, tweakRightmost)
 import Derived.Id.Identity
@@ -11,8 +11,7 @@ import Auxiliary.Auxiliary (test)
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
 
 main :: IO ()
-main = test . putStr . show $ seq (gid bigTree) "Evaluated bigTree generically"
-
+main = test ((return . show $ gid bigTree) >> putStrLn "Evaluated bigTree generically")
 
 genTree :: [Int] -> Tree Int
 genTree []    = Leaf

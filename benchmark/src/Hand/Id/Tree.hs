@@ -1,6 +1,6 @@
 {-# LANGUAGE NoGenericDeriving #-}
 
-module Hand.Eq.Tree where
+module Hand.Id.Tree where
 
 -- import Auxiliary.Tree (Tree(..), bigTree, tweakRightmost)
 import System.Random
@@ -12,7 +12,7 @@ data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
 
 
 main :: IO ()
-main = test . putStr . show $ seq (id bigTree) "Tree is evaluated!"
+main = test ((return . show $ id bigTree) >> putStrLn "Tree is evaluated!")
 
 
 genTree :: [Int] -> Tree Int
