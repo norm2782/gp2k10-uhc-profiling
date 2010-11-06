@@ -22,7 +22,8 @@ data Library = Hand          -- Handwritten code
              deriving (Eq, Ord, Show)
 
 data TestName = Eq 
-              | Map 
+              | Functor
+              | Bounded
               | Read
               | Show
               | Update      -- Traversals
@@ -39,23 +40,27 @@ data Test = Test { lib      :: Library,
 
 data Datatype = Tree    -- Labelled binary trees
               | Logic   -- Logic expressions
+              | Box     -- Box with three params
               deriving (Eq, Ord, Show)
 
 derivedTests = [
-                 Test Derived Eq Tree
-               , Test Derived Eq Logic
+--                 Test Derived Eq Tree
+--               , Test Derived Eq Logic
+                 Test Derived Functor Tree
+--                 Test Derived Bounded Box
 
 --               , Test Derived Id Tree
                ]
 
 ungenericTests = [
-    --               Test Hand Eq Tree
-    --             , Test Hand Eq Logic
+--                   Test Hand Eq Tree
+--                 , Test Hand Eq Logic
+                   Test Hand Functor Tree
 
-                  Test Hand Id Tree
+    --              Test Hand Id Tree
                  ]
 
-tests = [t | t <- ungenericTests ] -- test THAT benchmark!
+tests = [t | t <- ungenericTests ++ derivedTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","

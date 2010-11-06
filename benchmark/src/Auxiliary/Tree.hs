@@ -12,7 +12,7 @@ import System.Random
 import Auxiliary.Auxiliary (Bit, encodeInt)
 
 -- Tree datatype
-data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show)  -- removed Typable
+data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show)  
 
 
 -- Encode a tree
