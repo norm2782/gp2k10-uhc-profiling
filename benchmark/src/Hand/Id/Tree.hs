@@ -10,13 +10,13 @@ import UHC.Base
 -- Tree datatype
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
 
+lastNode :: Show a => Tree a -> String
+lastNode Leaf           = "No nodes!"
+lastNode (Bin a _ Leaf) = show a
+lastNode (Bin a l r)    = lastNode r
 
 main :: IO ()
-<<<<<<< HEAD
-main = test ((return . show $ id bigTree) >> putStrLn "Tree is evaluated!")
-=======
-main = test . putStr . show $ id bigTree
->>>>>>> ddba06f03677ecc615094014d445fb3feb119126
+main = test . putStr . show . lastNode . id $ bigTree
 
 
 genTree :: [Int] -> Tree Int
