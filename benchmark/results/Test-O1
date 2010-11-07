@@ -1,0 +1,12 @@
+
+Results:
+Number of repetitions: 3
+Compiler flags: -O1
+Environment: darwin,i386,Version {versionBranch = [6,12], versionTags = []}
+CPU time precision: 10.0 (ms)
+
+Eq/Tree,Hand,25592.766,15.223990836834433
+,Derived,69737.802,30.810520021575382
+Eq/Logic,Hand,3202.029,1.3337421040064892
+,Derived,5748.231666666667,6.302464147723085
+-------------------------------------

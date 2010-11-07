@@ -12,8 +12,7 @@ import UHC.Base
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
 
 main :: IO ()
-main = test (show $ gid bigTree >> putStrLn "Nl")
-
+main = test ((return . show $ gid bigTree) >> putStrLn "Evaluated bigTree generically")
 
 genTree :: [Int] -> Tree Int
 genTree []    = Leaf

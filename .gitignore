@@ -9,3 +9,4 @@
 *.lyx~
 *.swp
 .DS_Store
+.out

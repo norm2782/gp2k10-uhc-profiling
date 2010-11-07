@@ -18,23 +18,12 @@ import System.Info (os, arch, compilerVersion)
 import Control.Monad (when)
 
 data Library = Hand          -- Handwritten code
-             | HandGenericDeriving  -- Handwritten code but with the 
-                                    -- GenericDeriving flag on
-             | EMGM          -- emgm-0.3.1
-             | SYB           -- syb-0.1
-             | SYBInline     -- syb-0.1 with inlining tricks
-             | SYB3          -- syb-with-class-0.5.1
-             | MultiRec      -- multirec-0.4
-             | Regular       -- regular-0.2.1
-             | RegularInline -- regular-0.2.1 with INLINE pragmas
-             | RegularDeep   -- a version of regular-0.1 with deep encodings
-             | Instant       -- instant-generics-0.1
-             | InstantInline -- instant-generics-0.1 with INLINE pragmas
              | Derived       -- derived instances in UHC
              deriving (Eq, Ord, Show)
 
 data TestName = Eq 
-              | Map 
+              | Functor
+              | Bounded
               | Read
               | Show
               | Update      -- Traversals
@@ -51,21 +40,26 @@ data Test = Test { lib      :: Library,
 
 data Datatype = Tree    -- Labelled binary trees
               | Logic   -- Logic expressions
+              | Box     -- Box with three params
               deriving (Eq, Ord, Show)
 
 derivedTests = [
-                 Test Derived Eq Tree
- --              , Test Derived Eq Logic
-   --              Test Derived Id Tree
+--                 Test Derived Eq Tree
+--               , Test Derived Eq Logic
+                 Test Derived Functor Tree
+--                 Test Derived Bounded Box
+
+--               , Test Derived Id Tree
                ]
 
 ungenericTests = [
-                   Test Hand Eq Tree
-                 --, Test Hand Eq Logic
-            --      Test Hand Id Tree
-                 ]
+--                   Test Hand Eq Tree
+--                 , Test Hand Eq Logic
+                   Test Hand Functor Tree
 
-tests = [t | t <- derivedTests ++ ungenericTests] -- test THAT benchmark!
+    --              Test Hand Id Tree
+
+tests = [t | t <- ungenericTests ++ derivedTests] -- test THAT benchmark!
 
 inCommas :: [String] -> String
 inCommas = concat . intersperse ","
