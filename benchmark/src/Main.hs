@@ -46,18 +46,17 @@ data Datatype = Tree    -- Labelled binary trees
 derivedTests = [
 --                 Test Derived Eq Tree
 --               , Test Derived Eq Logic
-                 Test Derived Functor Tree
+--                 Test Derived Functor Tree
 --                 Test Derived Bounded Box
-
 --               , Test Derived Id Tree
                ]
 
 ungenericTests = [
 --                   Test Hand Eq Tree
 --                 , Test Hand Eq Logic
-                   Test Hand Functor Tree
-
-    --              Test Hand Id Tree
+--                   Test Hand Functor Tree
+--                   Test Hand Bounded Box
+                  Test Hand Id Tree
                  ]
 
 tests = [t | t <- ungenericTests ++ derivedTests] -- test THAT benchmark!
