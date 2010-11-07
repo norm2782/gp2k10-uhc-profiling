@@ -8,7 +8,7 @@ import Auxiliary.Auxiliary (test)
 --import UHC.Base
 
 -- Tree datatype
-data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
+data Tree a = Leaf | Bin a (Tree a) (Tree a) 
 
 lastNode :: Show a => Tree a -> String
 lastNode Leaf           = "No nodes!"
