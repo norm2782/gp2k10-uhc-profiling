@@ -1,4 +1,4 @@
-{--# LANGUAGE NoGenericDeriving #-}
+{-# LANGUAGE NoGenericDeriving #-}
 
 module Hand.Id.Tree where
 
