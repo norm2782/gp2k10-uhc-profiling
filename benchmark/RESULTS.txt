@@ -1,0 +1,35 @@
+➜  benchmark git:(master) ✗ cabal clean;cabal install;benchmark -n 5
+cleaning...
+Resolving dependencies...
+Configuring benchmark-0.1...
+Preprocessing executables for benchmark-0.1...
+Building benchmark-0.1...
+[1 of 1] Compiling Main             ( src/Main.hs, dist/build/benchmark/benchmark-tmp/Main.o )
+Linking dist/build/benchmark/benchmark ...
+Installing executable(s) in /Users/norm2782/.cabal/bin
+Create output directory if necessary...
+Compiling...
+Total number of elements: 8. 1 2 3 4 5 6 7 8 done.
+Removing old outputs...
+Running tests...
+Total number of elements: 40. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 done.
+-------------------------------------
+
+Results:
+Number of repetitions: 5
+Compiler flags: 
+Environment: darwin,i386,Version {versionBranch = [6,12], versionTags = []}
+CPU time precision: 10.0 (ms)
+
+Eq/Tree,Hand,16227.981600000003,263.9581387479847
+,Derived,43962.795,98.52267927487722
+Eq/Logic,Hand,7562.7886,5.979861060258913
+,Derived,19222.0884,170.01980614416703
+Functor/Tree,Hand,4076.4282,7.334607058322866
+,Derived,22814.792200000004,20.064878424750855
+Id/Tree,Hand,2.1994,6.417787780847853e-2
+,Derived,2.2009999999999996,2.8853076092507087e-2
+-------------------------------------
+➜  benchmark git:(master) ✗ uhc --version
+ehc-1.1.2, Revision 2198M
+
