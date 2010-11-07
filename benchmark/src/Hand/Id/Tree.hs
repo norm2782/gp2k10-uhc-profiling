@@ -16,7 +16,6 @@ lastNode (Bin a _ Leaf) = show a
 lastNode (Bin a l r)    = lastNode r
 
 main :: IO ()
--- main = test ((return . show $ id bigTree) >> putStrLn "Nl")
 main = test . putStr . show . lastNode . id $ bigTree
 
 genTree :: [Int] -> Tree Int
