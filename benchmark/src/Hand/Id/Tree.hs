@@ -1,19 +1,18 @@
 {--# LANGUAGE NoGenericDeriving #-}
 
-module Hand.Eq.Tree where
+module Hand.Id.Tree where
 
 -- import Auxiliary.Tree (Tree(..), bigTree, tweakRightmost)
 import System.Random
 import Auxiliary.Auxiliary (test)
-import UHC.Base
+--import UHC.Base
 
 -- Tree datatype
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving Show
 
 
 main :: IO ()
-main = test . putStr . show $ id bigTree
-
+main = test ((return . show $ id bigTree) >> putStrLn "Nl")
 
 genTree :: [Int] -> Tree Int
 genTree []    = Leaf

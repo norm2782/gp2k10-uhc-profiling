@@ -1,6 +1,6 @@
 {-# LANGUAGE GenericDeriving #-}
 
-module Derived.Eq.Tree where
+module Derived.Id.Tree where
 
 -- import Auxiliary.Tree (Tree(..), bigTree, tweakRightmost)
 import Derived.Id.Identity
@@ -12,7 +12,7 @@ import UHC.Base
 data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
 
 main :: IO ()
-main = test . putStr . show $ gid bigTree
+main = test (show $ gid bigTree >> putStrLn "Nl")
 
 
 genTree :: [Int] -> Tree Int
