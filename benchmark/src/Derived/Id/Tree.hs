@@ -9,15 +9,15 @@ import Auxiliary.Auxiliary (test)
 import UHC.Base
 
 -- Tree datatype
-data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Show, Id)
+data Tree a = Leaf | Bin a (Tree a) (Tree a) deriving (Id)
+
+lastNode :: Show a => Tree a -> String
+lastNode Leaf           = "No nodes!"
+lastNode (Bin a _ Leaf) = show a
+lastNode (Bin a l r)    = lastNode r
 
 main :: IO ()
-<<<<<<< HEAD
-main = test ((return . show $ gid bigTree) >> putStrLn "Evaluated bigTree generically")
-=======
-main = test . putStr . show $ gid bigTree
-
->>>>>>> ddba06f03677ecc615094014d445fb3feb119126
+main = test . putStr . show . lastNode . id $ bigTree
 
 genTree :: [Int] -> Tree Int
 genTree []    = Leaf

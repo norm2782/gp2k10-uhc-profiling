@@ -48,14 +48,13 @@ derivedTests = [
 --               , Test Derived Eq Logic
 --                 Test Derived Functor Tree
 --                 Test Derived Bounded Box
---               , Test Derived Id Tree
+                Test Derived Id Tree
                ]
 
 ungenericTests = [
 --                   Test Hand Eq Tree
 --                 , Test Hand Eq Logic
 --                   Test Hand Functor Tree
---                   Test Hand Bounded Box
                   Test Hand Id Tree
                  ]
 
