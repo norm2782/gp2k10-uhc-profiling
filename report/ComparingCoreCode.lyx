@@ -138,8 +138,14 @@ Even though the generic code is never used in the non-generic code without
 NoGenericDeriving
 \family default
  pragma, UHC does not remove it during optimization.
- While this might lead to extra space overhead, it should not impact performance
- [TODO: Proof this by benchmarking!!!].
+ While this might lead to extra space overhead, tests have shown that the
+ presence does not impact performance.
+ For this reason, no further explicit difference will be made between code
+ tested with 
+\family typewriter
+NoGenericDeriving
+\family default
+ and without this pragma.
 \end_layout
 
 \end_body
