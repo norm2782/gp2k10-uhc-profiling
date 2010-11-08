@@ -13,3 +13,5 @@ bar = do
     foo "World"
 
 main = (putStrLn . show) $ runState bar 1
+
+

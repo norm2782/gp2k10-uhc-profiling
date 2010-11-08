@@ -36,6 +36,7 @@ data Expr a where
 data Def = Def Name [String] Expr deriving Show
 
 
+{-
 -- Definition 4.5
 raise :: Expr -> [Expr] -> State [Def] Expr
 raise (Var x) ee                  = return $ App x ee
@@ -68,7 +69,7 @@ substitute :: Subst -> Expr -> State [Def] Expr
 substitute s (Var x)      = return $ apply s x
 substitute s (Func st ee) = return $ Func st (map (substitute s) ee)
 substitute s (Cons st ee) = return $ Cons st (map (substitute s) ee)
-substitude s (App x ee)   = return $ raise (apply s x) (map (subsitute s) ee)
+substitute s (App x ee)   = return $ raise (apply s x) (map (subsitute s) ee)
 
         
 -- Definition 4.8
@@ -79,24 +80,27 @@ match i app         (Def name arguments (Case x tuples)) = return $ Func name (t
 match i (Cons n ee) (Def name arguments (Case x tuples)) = subsitute ? 
     where
         expr = head $ filter (\((Cons name), expr) -> ) tuples
+-}
 
-
-
-
+match = undefined
 
 -- Definition 4.9
 fuse :: Def -> Def -> Int -> State [Def] ()
 -- 1a
-fuse f@(Def fn xx (Case x tuples)) s@(Def sn zz b) i = Def name parameters body
+fuse f@(Def fn xx (Case x tuples)) s@(Def sn zz b) i = Def name [] (Var "a")
     where
-        m = artiy fn
+        m = arity fn
         n = arity sn
         
         k = length zz
         
-        name = substitute fn (decrease sn m k) i
+        name = substitute fn (decrease sn (m - k)) i
         body = match i b f
 
 
 -- 1b & 2: TODO
 fuse _ _ _ = undefined
+
+
+-- main = (putStrLn . show) $ runState $ fuse (Def $ name "F" 2 $ undefined undefined) (Def $ name "S" 1 $ undefined undefined) $ []
+main = (putStrLn . show) $ fuse (Def (name "F" 2) ["x", "y"] (Case "x" [])) (Def (name "S" 1) ["z"] (Var "z")) 2
