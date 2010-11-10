@@ -69,10 +69,51 @@ Results
 \end_layout
 
 \begin_layout Standard
-Results are rounded to two decimals.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Results.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Benchmark results for Eq/Tree, Eq/Logic and Functor/Tree on all optimization
+ levels.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
+Results are rounded to one decimal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
 <lyxtabular version="3" rows="10" columns="8">
 <features tabularvalignment="middle">
@@ -89,7 +130,7 @@ Results are rounded to two decimals.
 \begin_inset Text
 
 \begin_layout Plain Layout
-Optimization
+O-flag
 \end_layout
 
 \end_inset
@@ -139,7 +180,7 @@ Eq/Logic
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -233,7 +274,7 @@ Derived
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="center" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -255,7 +296,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-17494.23
+28353.7
 \end_layout
 
 \end_inset
@@ -264,7 +305,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-46110.91
+75081.8
 \end_layout
 
 \end_inset
@@ -273,7 +314,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-8595.55
+3471.5
 \end_layout
 
 \end_inset
@@ -282,7 +323,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-20081.14
+5981.9
 \end_layout
 
 \end_inset
@@ -291,7 +332,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-4628.77
+7505.8
 \end_layout
 
 \end_inset
@@ -300,7 +341,7 @@ Time (ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-24724.42
+39026.5
 \end_layout
 
 \end_inset
@@ -330,7 +371,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-8.88
+52.0
 \end_layout
 
 \end_inset
@@ -339,7 +380,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-41.91
+142.2
 \end_layout
 
 \end_inset
@@ -348,7 +389,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-1.32
+4.7
 \end_layout
 
 \end_inset
@@ -357,7 +398,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.05
+13.9
 \end_layout
 
 \end_inset
@@ -366,7 +407,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-2.55
+20.0
 \end_layout
 
 \end_inset
@@ -375,14 +416,14 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-25.15
+92.2
 \end_layout
 
 \end_inset
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="center" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -395,7 +436,7 @@ O1
 \begin_inset Text
 
 \begin_layout Plain Layout
-Time(ms)
+Time (ms)
 \end_layout
 
 \end_inset
@@ -404,7 +445,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-16089.88
+25848.1
 \end_layout
 
 \end_inset
@@ -413,7 +454,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-44156.72
+70483.6
 \end_layout
 
 \end_inset
@@ -422,7 +463,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-7613.67
+3247.8
 \end_layout
 
 \end_inset
@@ -431,7 +472,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-19274.80
+5797.6
 \end_layout
 
 \end_inset
@@ -440,7 +481,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-4112.12
+6411.9
 \end_layout
 
 \end_inset
@@ -449,7 +490,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-22974.94
+36250.0
 \end_layout
 
 \end_inset
@@ -479,7 +520,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-51.02
+16.6
 \end_layout
 
 \end_inset
@@ -488,7 +529,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-203.10
+60.7
 \end_layout
 
 \end_inset
@@ -497,7 +538,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-43.90
+4.7
 \end_layout
 
 \end_inset
@@ -506,7 +547,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-58.63
+3.6
 \end_layout
 
 \end_inset
@@ -515,7 +556,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-21.77
+4.9
 \end_layout
 
 \end_inset
@@ -524,14 +565,14 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-43.25
+50.0
 \end_layout
 
 \end_inset
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="center" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -544,7 +585,7 @@ O2
 \begin_inset Text
 
 \begin_layout Plain Layout
-Time(ms)
+Time (ms)
 \end_layout
 
 \end_inset
@@ -553,7 +594,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-16855.91
+25979.8
 \end_layout
 
 \end_inset
@@ -562,7 +603,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-43963.04
+70742.7
 \end_layout
 
 \end_inset
@@ -571,7 +612,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-7785.17
+3285.9
 \end_layout
 
 \end_inset
@@ -580,7 +621,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-18845.86
+5806.5
 \end_layout
 
 \end_inset
@@ -589,7 +630,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-4175.92
+6466.3
 \end_layout
 
 \end_inset
@@ -598,7 +639,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-22680.00
+36316.2
 \end_layout
 
 \end_inset
@@ -628,7 +669,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-41.74
+58.3
 \end_layout
 
 \end_inset
@@ -637,7 +678,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-146.38
+139.0
 \end_layout
 
 \end_inset
@@ -646,7 +687,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-14.57
+23.0
 \end_layout
 
 \end_inset
@@ -655,7 +696,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-22.35
+10.5
 \end_layout
 
 \end_inset
@@ -664,7 +705,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-12.11
+20.9
 \end_layout
 
 \end_inset
@@ -673,7 +714,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-27.51
+39.3
 \end_layout
 
 \end_inset
@@ -693,7 +734,7 @@ O3
 \begin_inset Text
 
 \begin_layout Plain Layout
-Time(ms)
+Time (ms)
 \end_layout
 
 \end_inset
@@ -702,7 +743,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+25869.0
 \end_layout
 
 \end_inset
@@ -711,7 +752,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+70735.9
 \end_layout
 
 \end_inset
@@ -720,7 +761,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+3257.7
 \end_layout
 
 \end_inset
@@ -729,7 +770,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+5814.2
 \end_layout
 
 \end_inset
@@ -738,7 +779,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+6435.6
 \end_layout
 
 \end_inset
@@ -747,7 +788,7 @@ Time(ms)
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+36314.4
 \end_layout
 
 \end_inset
@@ -777,7 +818,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+30.3
 \end_layout
 
 \end_inset
@@ -786,7 +827,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+206.6
 \end_layout
 
 \end_inset
@@ -795,7 +836,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+4.6
 \end_layout
 
 \end_inset
@@ -804,7 +845,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+5.0
 \end_layout
 
 \end_inset
@@ -813,7 +854,7 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+27.7
 \end_layout
 
 \end_inset
@@ -822,13 +863,30 @@ Std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+64.1
 \end_layout
 
 \end_inset
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Benchmark results in miliseconds, including standard deviations.
+\end_layout
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
