@@ -75,18 +75,17 @@
 Benchmarking Generics in UHC
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
+\begin_layout Author
+Jurriën Stutterheim, Robert Kreuzer, Henk Erik van der Hoek
+\end_layout
 
-\end_inset
-
-
+\begin_layout Date
+12 November, 2010
 \end_layout
 
 \begin_layout Standard
 \begin_inset CommandInset include
-LatexCommand include
+LatexCommand input
 filename "ComparingCoreCode.lyx"
 
 \end_inset
@@ -96,14 +95,17 @@ filename "ComparingCoreCode.lyx"
 
 \begin_layout Standard
 \begin_inset CommandInset include
-LatexCommand include
+LatexCommand input
 filename "BenchmarkResults.lyx"
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
 \begin_inset CommandInset include
-LatexCommand include
+LatexCommand input
 filename "Appendix.lyx"
 
 \end_inset
