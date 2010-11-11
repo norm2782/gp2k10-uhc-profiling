@@ -79,7 +79,7 @@ status open
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename Results.pdf
+	filename ../Results.pdf
 	width 100text%
 
 \end_inset

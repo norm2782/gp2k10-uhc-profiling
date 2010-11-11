@@ -2,9 +2,10 @@
 \lyxformat 407
 \begin_document
 \begin_header
-\textclass article
+\textclass beamer
 \begin_preamble
-\usepackage{lhs2tex}
+\usetheme{uucs}
+\usepackage{../lhs2tex}
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -28,19 +29,9 @@
 \index_command default
 \paperfontsize default
 \spacing single
-\use_hyperref true
-\pdf_title "Benchmarking Generics in UHC"
-\pdf_bookmarks true
-\pdf_bookmarksnumbered false
-\pdf_bookmarksopen false
-\pdf_bookmarksopenlevel 1
-\pdf_breaklinks false
-\pdf_pdfborder false
-\pdf_colorlinks false
-\pdf_backref false
-\pdf_pdfusetitle true
+\use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -80,73 +71,28 @@ Jurriën Stutterheim, Robert Kreuzer, Henk Erik van der Hoek
 \end_layout
 
 \begin_layout Date
-12 November, 2010
+November 11, 2010
 \end_layout
 
-\begin_layout Abstract
-This is our abstract.
- It should be really abstract! [TODO: Write the actual abstract]
+\begin_layout BeginFrame
+Overview
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "Introduction.lyx"
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "ComparingCoreCode.lyx"
-
-\end_inset
-
+\begin_layout EndFrame
 
 \end_layout
 
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "BenchmarkResults.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "ImprovingPerformance.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "Appendix.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "Library"
-options "acm"
-
-\end_inset
-
-
+\begin_layout Section
+Introduction
 \end_layout
 
 \end_body
