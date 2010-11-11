@@ -59,6 +59,13 @@
 
 \begin_layout Section
 Analyzing Core and Grin Code
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Analyzing-Core-and"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

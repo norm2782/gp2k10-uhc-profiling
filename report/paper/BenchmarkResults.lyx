@@ -59,6 +59,13 @@
 
 \begin_layout Section
 Benchmarking Generics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Benchmarking-Generics"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

@@ -59,6 +59,13 @@
 
 \begin_layout Section
 Improving Performance for Generics
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Improving-Performance-for"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

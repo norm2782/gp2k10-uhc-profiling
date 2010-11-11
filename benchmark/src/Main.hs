@@ -50,7 +50,7 @@ derivedTests = [
                ]
 
 ungenericTests = [
-                   Test Hand Eq Tree
+                  Test Hand Eq Tree
                  , Test Hand Eq Logic
                  , Test Hand Functor Tree
               ]

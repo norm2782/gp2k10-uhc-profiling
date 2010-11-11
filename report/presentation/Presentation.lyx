@@ -75,12 +75,208 @@ November 11, 2010
 \end_layout
 
 \begin_layout BeginFrame
-Overview
+Introduction
+\end_layout
+
+\begin_layout Itemize
+UHC 1.1.0 implements support for generic deriving
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Allows for deriving more than just Eq, Ord, Enum, Bounded, Show, or Read
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Any typeclass which provides a generic implementation (as in A Generic Deriving
+ Mechanism for Haskell) can be derived
+\end_layout
+
+\begin_layout Itemize
+This is great, since the programmer has to write less code and the compiler
+ can do the repetitive tasks
+\end_layout
+
+\begin_layout Itemize
+However...
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Problem Definition
+\end_layout
+
+\begin_layout Itemize
+Previous benchmarks have confirmed for GHC that the use of generic functions
+ is slow due to frequent convertion to and from representation types
+\end_layout
+
+\begin_layout Itemize
+The performance impact of generic deriving in UHC is unknown
+\end_layout
+
+\begin_layout Itemize
+It is unknown whether the compiler is able to optimize the generic code
+ sufficiently
+\end_layout
+
+\begin_layout Itemize
+We want to find out what UHC is doing during compilation
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Goals
+\end_layout
+
+\begin_layout Itemize
+Benchmark the performance of generic deriving in UHC
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Benchmark derived generic functions.
+\end_layout
+
+\begin_layout Itemize
+Benchmark hand-written type-specific functions.
+\end_layout
+
+\begin_layout Itemize
+Compare results.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+If there is a difference in performance
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Explain the cause
+\end_layout
+
+\begin_layout Itemize
+Suggest possible improvements
+\end_layout
+
+\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Approach
+\end_layout
+
+\begin_layout Itemize
+Modify the benchmark tool used in the Optimizing Generics is Easy! paper
+ to work for UHC
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Run it for various functions for various datatypes
+\end_layout
+
+\begin_layout Itemize
+Run it on various optimization levels
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Dump intermediate code and analyze it to see what the compiler does
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Core code
+\end_layout
+
+\begin_layout Itemize
+Grin code
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Review literature and suggest a method to possibly improve performance 
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Results
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset toc
-LatexCommand tableofcontents
+\begin_inset Graphics
+	filename /Users/norm2782/Documents/UU/GP/Project/gp2k10-uhc-profiling/report/Results.pdf
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Cause for differences: on no optimization level is the generic code removed.
+\end_layout
+
+\begin_layout Standard
+Verdict: generic functions are slow!
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Proposed Improvements
+\end_layout
+
+\begin_layout Itemize
+Various authors have discussed fusion and super compilers
+\end_layout
+
+\begin_layout Itemize
+Compilers statically evaluate the code to find optimizations
+\end_layout
+
+\begin_layout Itemize
+Can remove large portions of the generic code during compilation, resulting
+ in significant speed-ups
+\end_layout
+
+\begin_layout Itemize
+We have tried implementing some of the ideas from the various papers (but
+ this will not be presented today)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Getting UHC
+\end_layout
+
+\begin_layout Standard
+UHC on GitHub!
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/uhc/uhc"
 
 \end_inset
 
@@ -91,8 +287,16 @@ LatexCommand tableofcontents
 
 \end_layout
 
-\begin_layout Section
-Introduction
+\begin_layout BeginFrame
+Questions
+\end_layout
+
+\begin_layout Standard
+Questions?
+\end_layout
+
+\begin_layout EndFrame
+
 \end_layout
 
 \end_body
