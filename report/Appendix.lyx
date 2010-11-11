@@ -1,5 +1,5 @@
-#LyX 2.0.0alpha6 created this file. For more info see http://www.lyx.org/
-\lyxformat 400
+#LyX 2.0.0beta1 created this file. For more info see http://www.lyx.org/
+\lyxformat 407
 \begin_document
 \begin_header
 \textclass article
@@ -36,6 +36,7 @@
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\use_refstyle 1
 \index Index
 \shortcut idx
 \color #008000
@@ -57,49 +58,8 @@
 \begin_body
 
 \begin_layout Section
-Benchmarking Generics
-\end_layout
-
-\begin_layout Subsection
-Methods
-\end_layout
-
-\begin_layout Subsection
-Results
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
-
-\begin_layout Plain Layout
-\begin_inset Graphics
-	filename Results.pdf
-	width 100text%
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-Benchmark results for Eq/Tree, Eq/Logic and Functor/Tree on all optimization
- levels.
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
+\start_of_appendix
+Benchmark Results
 \end_layout
 
 \begin_layout Standard
@@ -108,6 +68,7 @@ Results are rounded to one decimal.
 
 \begin_layout Standard
 \begin_inset Float table
+placement h
 wide false
 sideways false
 status open
@@ -881,6 +842,7 @@ Std.
 
 \begin_layout Plain Layout
 Benchmark results in miliseconds, including standard deviations.
+ Lower is better.
 \end_layout
 
 \end_inset
