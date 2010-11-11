@@ -44,19 +44,16 @@ data Datatype = Tree    -- Labelled binary trees
               deriving (Eq, Ord, Show)
 
 derivedTests = [
---                 Test Derived Eq Tree
---               , Test Derived Eq Logic
---                 Test Derived Functor Tree
---                 Test Derived Bounded Box
-                Test Derived Id Tree
+                 Test Derived Eq Tree
+               , Test Derived Eq Logic
+               , Test Derived Functor Tree
                ]
 
 ungenericTests = [
---                   Test Hand Eq Tree
---                 , Test Hand Eq Logic
---                   Test Hand Functor Tree
-                  Test Hand Id Tree
-                 ]
+                  Test Hand Eq Tree
+                 , Test Hand Eq Logic
+                 , Test Hand Functor Tree
+              ]
 
 tests = [t | t <- ungenericTests ++ derivedTests] -- test THAT benchmark!
 
@@ -200,7 +197,7 @@ main = do
             flags      = " -fforce-recomp --make " ++ getRequiredArg args F ++ " "
                        ++ (if profiling then " -prof -auto-all " else "")
                        ++ " -outputdir out "
-            uhcflags   =  " -v=4 "               -- be verbose
+            uhcflags   =  " -v4 "               -- be verbose
                        ++ "--no-recomp "         -- force recompilation
                        ++ getRequiredArg args F  -- get additonal cmd line flags
                        ++ " "
