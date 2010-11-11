@@ -1,0 +1,145 @@
+#LyX 2.0.0beta1 created this file. For more info see http://www.lyx.org/
+\lyxformat 407
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_xetex false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Benchmarking methodology
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Benchmarking-methodology"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section we describe which testing framework we used and which tests
+ we implemented.
+\end_layout
+
+\begin_layout Subsection
+Framework
+\end_layout
+
+\begin_layout Standard
+In order to compare the performance of the generically derived instances
+ and their handwritten counterparts we needed a testing framework.
+ We adapted the benchmarking framework from J.
+ P.
+ Magalhães, which he used in his paper 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Magalhaes:2010p568"
+
+\end_inset
+
+, to work with UHC instead of GHC.
+ Only minor adjustments were necessary, which were mostly due to UHC not
+ supporting the same flags as GHC.
+ The framework allowed us to automate all the tests and to set the different
+ optimization flags O0 - O3, which we wanted to compare.
+\end_layout
+
+\begin_layout Standard
+All tests are compiled individually as stand-alone programs and then run
+ a specified number of times.
+ The average execution time and the standard deviation are then printed
+ to screen or to a file.
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Subsection
+Benchmarks
+\end_layout
+
+\begin_layout Standard
+We set up tests for 
+\family typewriter
+Eq
+\family default
+ and 
+\family typewriter
+Functor
+\family default
+, because they both use the generic deriving mechanism.
+ Each test was implemented once using the generic deriving mechanism and
+ once with hand-written instances.
+ For 
+\family typewriter
+Eq
+\family default
+ we compared two big trees (~1.5 million nodes) and two big logical expressions,
+ which were provided by the testing framework, for equality.
+ For the 
+\family typewriter
+Functor
+\family default
+ test, we mapped (+1) over a big tree.
+\end_layout
+
+\begin_layout Standard
+Each of the six test cases was then run with the four different optimization
+ levels for a total of 24 tests.
+\end_layout
+
+\end_body
+\end_document

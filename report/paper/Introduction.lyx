@@ -63,7 +63,8 @@ Introduction
 
 \begin_layout Standard
 The Utrecht Haskell Compiler (UHC) is a Haskell compiler developed at Utrecht
- University for the purpose of having a platform upon which to experiment
+ University.
+ It's main purpose is to have a platform upon which can be experimented
  with new language or type system features
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -75,25 +76,29 @@ key "Dijkstra:2009p587"
 \end_layout
 
 \begin_layout Standard
-[TODO: Add some more introduction to UHC]
+It features multiple back-ends and many experimental language extensions.
+ One of these extensions is the generic deriving mechanism, which was added
+ in the UHC 1.10 release.
+ Generic deriving allows to specify deriving behaviour generically using
+ a sum-of-products view of the structure of data types.
+ This makes it possible to derive instances for many more classes than in
+ GHC automatically.
+ The details and limitations are described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jpm:gdmh:10"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
-Int the UHC 1.1.0 release it has become possible to use Haskell's 
-\family typewriter
-deriving
-\family default
- keyword with any class, using a generic programming approach to implement
- the derived algorithms[TODO: Refactor this sentence, it's crap].
- 
-\end_layout
-
-\begin_layout Standard
-While the use of generic functions provides the benefit that functions only
- have to be written (or generated) (TODO: and optimized??) once [TODO: Why
- were generic functions so cool again?], it has been shown that without
- optimization efforts, generic functions are significantly slower than specializ
-ed functions
+Generic functions provide the benefit that functions only have to be written
+ once and can then be used with all data types that have a structural representa
+tion.
+ The downside is, that it has been shown that generic functions, which have
+ not been optimized somehow, are significantly slower than specialized functions
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Magalhaes:2010p568"
@@ -106,11 +111,48 @@ key "Magalhaes:2010p568"
 \begin_layout Standard
 In this paper we study the performance impact of generic deriving in UHC
  by performing benchmarks on code using generic functions and code using
- specific functions.
+ their handwritten counterparts.
 \end_layout
 
 \begin_layout Standard
-[TODO: Refer to other sections here]
+In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Benchmarking-methodology"
+
+\end_inset
+
+ we describe how we setup our benchmarks.
+ In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Analyzing-Core-and"
+
+\end_inset
+
+ we analyze the generated intermediate code.
+ In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Benchmarking-Generics"
+
+\end_inset
+
+ we present our results and in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Improving-Performance-for"
+
+\end_inset
+
+ we discuss how the generated code could be improved.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
 \end_layout
 
 \end_body
