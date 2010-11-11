@@ -4,7 +4,9 @@
 module Optimize where
 
 import Control.Monad.State 
-import Name
+
+import Name hiding (substitute)
+import qualified Name as N
     
 -- Core functional language
 data Expr = Var String
@@ -33,12 +35,13 @@ data Expr a where
 -}
 
 -- Function definition
-data Def = Def Name [String] Expr deriving Show
+data Def = Def Name [Expr] Expr deriving Show
 
 
-{-
+
 -- Definition 4.5
 raise :: Expr -> [Expr] -> State [Def] Expr
+
 raise (Var x) ee                  = return $ App x ee
 raise (Cons n dd) ee              = return $ Cons n (dd ++ ee)
 raise (Func n dd) ee | delta <= 0 = return $ Func n (dd ++ ee)
@@ -48,59 +51,70 @@ raise (Func n dd) ee | delta <= 0 = return $ Func n (dd ++ ee)
 raise (App x dd) ee               = return $ App x (dd ++ ee)
 
 
-raise (Case x tuples) ee          = return $ Case x (map update tuples)
-                                  where
-                                      update (pattern, expr) = (pattern, raise expr ee)
-                                      
+raise (Case x tuples) ee          = mmap update tuples >>= wrap
+    where
+        wrap tt = return $ Case x tt
+        
+        update :: (Expr, Expr) -> State [Def] (Expr, Expr)
+        update (pattern, expr) = raise expr ee >>= (\updated -> return $ (pattern, updated))
 
-                                    
-
-fusion :: []
 
 data Subst = Subst String Expr
 
         
-apply :: Subst -> Expr -> Expr 
+apply :: Subst -> String -> Expr 
 apply = undefined    
 
                                     
 -- Definition 4.7
 substitute :: Subst -> Expr -> State [Def] Expr 
 substitute s (Var x)      = return $ apply s x
-substitute s (Func st ee) = return $ Func st (map (substitute s) ee)
-substitute s (Cons st ee) = return $ Cons st (map (substitute s) ee)
-substitute s (App x ee)   = return $ raise (apply s x) (map (subsitute s) ee)
+substitute s (Func st ee) = mmap (substitute s) ee >>= wrap
+    where
+        wrap ff = return $ Func st ff
+substitute s (Cons st ee) = mmap (substitute s) ee >>= wrap
+    where
+        wrap ff = return $ Cons st ff
+substitute s (App x ee)   = mmap (substitute s) ee >>= raise (apply s x)
 
-        
+
+
 -- Definition 4.8
 match :: Int -> Expr -> Def -> State [Def] Expr
-match i (Var y)     (Def name arguments (Case x tuples)) = return $ Case y tuples
-match i func        (Def name arguments (Case x tuples)) = return $ Func name (take i arguments) ++ [func] ++ (drop (i + 1) arguments)
-match i app         (Def name arguments (Case x tuples)) = return $ Func name (take i arguments) ++ [app]  ++ (drop (i + 1) arguments)
-match i (Cons n ee) (Def name arguments (Case x tuples)) = subsitute ? 
+match i (Var y)      (Def name arguments (Case x tuples)) = return $ Case y tuples
+match i f@(Func _ _) (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [f] ++ (drop (i + 1) arguments))
+match i a@(App _ _)  (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [a] ++ (drop (i + 1) arguments))
+match i (Cons n ee)  (Def name arguments (Case x tuples)) = undefined -- substitute subst expr
     where
-        expr = head $ filter (\((Cons name), expr) -> ) tuples
--}
+        (Cons _ yy, expr) = head $ filter (\((Cons m _), _) -> m == n) tuples
+        subst = undefined 
+            
 
-match = undefined
 
 -- Definition 4.9
 fuse :: Def -> Def -> Int -> State [Def] ()
--- 1a
-fuse f@(Def fn xx (Case x tuples)) s@(Def sn zz b) i = Def name [] (Var "a")
+fuse f@(Def fn xx (Case x tuples)) s@(Def sn zz b) i = State $ \state -> ((), [Def name [] body] ++ more ++ state)
     where
         m = arity fn
         n = arity sn
         
         k = length zz
         
-        name = substitute fn (decrease sn (m - k)) i
-        body = match i b f
+        name         = N.substitute fn (decrease sn (m - k)) i
+        (body, more) = runState (match i b f) []
 
 
 -- 1b & 2: TODO
 fuse _ _ _ = undefined
 
 
--- main = (putStrLn . show) $ runState $ fuse (Def $ name "F" 2 $ undefined undefined) (Def $ name "S" 1 $ undefined undefined) $ []
-main = (putStrLn . show) $ fuse (Def (name "F" 2) ["x", "y"] (Case "x" [])) (Def (name "S" 1) ["z"] (Var "z")) 2
+main = (putStrLn . show) $ runState (fuse (Def (name "F" 2) [Var "x", Var "y"] (Case "x" [])) (Def (name "S" 1) [Var "z"] (Var "z")) 2) []
+
+
+
+-- Utility function
+mmap :: (a -> State s b) -> [a] -> State s [b]
+mmap f []     = return []
+mmap f (x:xs) = do h <- f x 
+                   t <- mmap f xs
+                   return (h:t)
