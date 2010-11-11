@@ -51,5 +51,6 @@ decrease (Name n tt) k = decrease (Name n $ h tt) (k - 1)
 
 name :: String -> Int -> Name 
 name l = increase (Name l [])
-                   
+ 
+                  
 -- main = (putStrLn . show) $ substitute (Named (Name "bar" [(Named (Name "daz" [])), Anonymous, Anonymous])) (Named (Name "foo" [])) 2
