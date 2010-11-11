@@ -82,21 +82,24 @@ Introduction
 UHC 1.1.0 implements support for generic deriving
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-Most Haskell 98 classes can be derived using the 
-\family typewriter
-deriving
-\family default
- keyword
+Allows for deriving more than just Eq, Ord, Enum, Bounded, Show, or Read
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Any typeclass which provides a generic implementation (as in A Generic Deriving
+ Mechanism for Haskell) can be derived
 \end_layout
 
 \begin_layout Itemize
-Generic implementations are used by the compiler to support this
+This is great, since the programmer has to write less code and the compiler
+ can do the repetitive tasks
 \end_layout
 
 \begin_layout Itemize
-Previous benchmarks have confirmed for GHC that the use of generic functions
- is slower
+However...
 \end_layout
 
 \begin_layout EndFrame
@@ -108,16 +111,21 @@ Problem Definition
 \end_layout
 
 \begin_layout Itemize
-The performance impact of generic deriving is unknown
+Previous benchmarks have confirmed for GHC that the use of generic functions
+ is slow due to frequent convertion to and from representation types
 \end_layout
 
 \begin_layout Itemize
-It is unknown if the compiler is able to optimise the code to remove generic
- code
+The performance impact of generic deriving in UHC is unknown
 \end_layout
 
 \begin_layout Itemize
-We want to find out what UHC is doing...
+It is unknown whether the compiler is able to optimize the generic code
+ sufficiently
+\end_layout
+
+\begin_layout Itemize
+We want to find out what UHC is doing during compilation
 \end_layout
 
 \begin_layout EndFrame
@@ -184,7 +192,7 @@ Run it on various optimization levels
 
 \end_deeper
 \begin_layout Itemize
-Dump intermediate code and analyse it to see what the compiler does
+Dump intermediate code and analyze it to see what the compiler does
 \end_layout
 
 \begin_deeper
@@ -223,6 +231,10 @@ Results
 Cause for differences: on no optimization level is the generic code removed.
 \end_layout
 
+\begin_layout Standard
+Verdict: generic functions are slow!
+\end_layout
+
 \begin_layout EndFrame
 
 \end_layout
@@ -244,12 +256,33 @@ Can remove large portions of the generic code during compilation, resulting
  in significant speed-ups
 \end_layout
 
-\begin_deeper
 \begin_layout Itemize
-Especially converting to and from representation types is slow
+We have tried implementing some of the ideas from the various papers (but
+ this will not be presented today)
 \end_layout
 
-\end_deeper
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Getting UHC
+\end_layout
+
+\begin_layout Standard
+UHC on GitHub!
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/uhc/uhc"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout EndFrame
 
 \end_layout
