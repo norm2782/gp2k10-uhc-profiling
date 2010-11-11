@@ -1,5 +1,5 @@
-#LyX 2.0.0alpha6 created this file. For more info see http://www.lyx.org/
-\lyxformat 400
+#LyX 2.0.0beta1 created this file. For more info see http://www.lyx.org/
+\lyxformat 407
 \begin_document
 \begin_header
 \textclass article
@@ -36,6 +36,7 @@
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\use_refstyle 0
 \index Index
 \shortcut idx
 \color #008000
@@ -70,11 +71,13 @@ Results
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
 \begin_inset Graphics
 	filename Results.pdf
 	width 100text%

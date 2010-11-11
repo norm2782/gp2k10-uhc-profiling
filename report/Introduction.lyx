@@ -3,9 +3,6 @@
 \begin_document
 \begin_header
 \textclass article
-\begin_preamble
-\usepackage{lhs2tex}
-\end_preamble
 \use_default_options true
 \maintain_unincluded_children false
 \language english
@@ -27,18 +24,7 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
-\spacing single
-\use_hyperref true
-\pdf_title "Benchmarking Generics in UHC"
-\pdf_bookmarks true
-\pdf_bookmarksnumbered false
-\pdf_bookmarksopen false
-\pdf_bookmarksopenlevel 1
-\pdf_breaklinks false
-\pdf_pdfborder false
-\pdf_colorlinks false
-\pdf_backref false
-\pdf_pdfusetitle true
+\use_hyperref false
 \papersize default
 \use_geometry false
 \use_amsmath 1
@@ -50,7 +36,7 @@
 \use_indices false
 \paperorientation portrait
 \suppress_date false
-\use_refstyle 0
+\use_refstyle 1
 \index Index
 \shortcut idx
 \color #008000
@@ -71,72 +57,60 @@
 
 \begin_body
 
-\begin_layout Title
-Benchmarking Generics in UHC
-\end_layout
-
-\begin_layout Author
-Jurriën Stutterheim, Robert Kreuzer, Henk Erik van der Hoek
-\end_layout
-
-\begin_layout Date
-12 November, 2010
-\end_layout
-
-\begin_layout Abstract
-This is our abstract.
- It should be really abstract! [TODO: Write the actual abstract]
+\begin_layout Section
+Introduction
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "Introduction.lyx"
+The Utrecht Haskell Compiler (UHC) is a Haskell compiler developed at Utrecht
+ University for the purpose of having a platform upon which to experiment
+ with new language or type system features
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dijkstra:2009p587"
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "ComparingCoreCode.lyx"
-
-\end_inset
-
-
+[TODO: Add some more introduction to UHC]
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "BenchmarkResults.lyx"
-
-\end_inset
-
-
+Int the UHC 1.1.0 release it has become possible to use Haskell's 
+\family typewriter
+deriving
+\family default
+ keyword with any class, using a generic programming approach to implement
+ the derived algorithms[TODO: Refactor this sentence, it's crap].
+ 
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
-filename "Appendix.lyx"
+While the use of generic functions provides the benefit that functions only
+ have to be written (or generated) (TODO: and optimized??) once [TODO: Why
+ were generic functions so cool again?], it has been shown that without
+ optimization efforts, generic functions are significantly slower than specializ
+ed functions
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Magalhaes:2010p568"
 
 \end_inset
 
-
+.
 \end_layout
 
 \begin_layout Standard
-\begin_inset CommandInset bibtex
-LatexCommand bibtex
-bibfiles "Library"
-options "acm"
+In this paper we study the performance impact of generic deriving in UHC
+ by performing benchmarks on code using generic functions and code using
+ specific functions.
+\end_layout
 
-\end_inset
-
-
+\begin_layout Standard
+[TODO: Refer to other sections here]
 \end_layout
 
 \end_body
