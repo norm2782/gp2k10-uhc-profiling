@@ -261,6 +261,14 @@ We have tried implementing some of the ideas from the various papers (but
  this will not be presented today)
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+However, the core language from the papers seems quite different from UHC's
+ core language.
+ Implementing these ideas in UHC might not be straight-forward.
+\end_layout
+
+\end_deeper
 \begin_layout EndFrame
 
 \end_layout
