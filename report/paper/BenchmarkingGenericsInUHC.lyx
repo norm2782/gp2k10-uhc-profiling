@@ -152,7 +152,7 @@ filename "Appendix.lyx"
 \begin_inset CommandInset bibtex
 LatexCommand bibtex
 bibfiles "../Library"
-options "acm"
+options "IEEEtran"
 
 \end_inset
 

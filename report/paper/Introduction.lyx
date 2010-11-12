@@ -78,14 +78,12 @@ key "Dijkstra:2009p587"
 \begin_layout Standard
 It features multiple back-ends and many experimental language extensions.
  One of these extensions is the generic deriving mechanism, which was added
- in the UHC 1.10 release.
- Generic deriving allows to specify deriving behaviour generically using
- a sum-of-products view of the structure of data types.
- This makes it possible to derive instances for many more classes than in
- GHC automatically.
- The details and limitations are described in 
+ in the UHC 1.1.0 release.
+ Generic deriving makes it possible to derive instances for any typeclass
+ which provides a generic implementation as described by Magalhães et al.
+ 
 \begin_inset CommandInset citation
-LatexCommand cite
+LatexCommand citet
 key "jpm:gdmh:10"
 
 \end_inset
@@ -97,8 +95,9 @@ key "jpm:gdmh:10"
 Generic functions provide the benefit that functions only have to be written
  once and can then be used with all data types that have a structural representa
 tion.
- The downside is, that it has been shown that generic functions, which have
- not been optimized somehow, are significantly slower than specialized functions
+ However, research on performance of generic functions in GHC has shown
+ that, without considerable optimization, generic functions are significantly
+ slower than specialized functions
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Magalhaes:2010p568"
@@ -110,8 +109,8 @@ key "Magalhaes:2010p568"
 
 \begin_layout Standard
 In this paper we study the performance impact of generic deriving in UHC
- by performing benchmarks on code using generic functions and code using
- their handwritten counterparts.
+ by performing benchmarks on code using generic functions and code which
+ uses their handwritten counterparts.
 \end_layout
 
 \begin_layout Standard
