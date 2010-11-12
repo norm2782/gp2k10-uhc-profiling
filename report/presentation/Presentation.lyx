@@ -63,7 +63,7 @@
 \begin_body
 
 \begin_layout Title
-Benchmarking Generics in UHC
+Benchmarking the Generic Deriving Mechanism in UHC
 \end_layout
 
 \begin_layout Author
@@ -89,8 +89,28 @@ Allows for deriving more than just Eq, Ord, Enum, Bounded, Show, or Read
 
 \end_deeper
 \begin_layout Itemize
-Any typeclass which provides a generic implementation (as in A Generic Deriving
- Mechanism for Haskell) can be derived
+Any typeclass which provides a generic implementation
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\size scriptsize
+as in 
+\begin_inset Quotes eld
+\end_inset
+
+A Generic Deriving Mechanism for Haskell
+\begin_inset Quotes erd
+\end_inset
+
+ by Magalhaes et al.
+ (2010)
+\end_layout
+
+\end_inset
+
+ can be derived
 \end_layout
 
 \begin_layout Itemize
@@ -111,8 +131,21 @@ Problem Definition
 \end_layout
 
 \begin_layout Itemize
-Previous benchmarks have confirmed for GHC that the use of generic functions
- is slow due to frequent convertion to and from representation types
+Previous benchmarks
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Magalhaes et al.
+ Optimizing generics is easy! (2010)
+\end_layout
+
+\end_inset
+
+ have confirmed for GHC that the use of generic functions is slow due to
+ frequent conversion to and from representation types
 \end_layout
 
 \begin_layout Itemize
@@ -142,15 +175,15 @@ Benchmark the performance of generic deriving in UHC
 
 \begin_deeper
 \begin_layout Itemize
-Benchmark derived generic functions.
+Benchmark derived generic functions
 \end_layout
 
 \begin_layout Itemize
-Benchmark hand-written type-specific functions.
+Benchmark hand-written type-specific functions
 \end_layout
 
 \begin_layout Itemize
-Compare results.
+Compare results
 \end_layout
 
 \end_deeper
@@ -160,7 +193,7 @@ If there is a difference in performance
 
 \begin_deeper
 \begin_layout Itemize
-Explain the cause
+Try to find and explain the cause
 \end_layout
 
 \begin_layout Itemize
@@ -232,7 +265,7 @@ Cause for differences: on no optimization level is the generic code removed.
 \end_layout
 
 \begin_layout Standard
-Verdict: generic functions are slow!
+Verdict: generic functions are significantly slower than non-generic functions!
 \end_layout
 
 \begin_layout EndFrame
@@ -244,7 +277,19 @@ Proposed Improvements
 \end_layout
 
 \begin_layout Itemize
-Various authors have discussed fusion and super compilers
+Various authors
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\size scriptsize
+Alimarine & Smetsers 2004, Bolingbroke & Peyton Jones 2010, Mitchell 2010
+\end_layout
+
+\end_inset
+
+ have discussed fusion and super compilers
 \end_layout
 
 \begin_layout Itemize
@@ -265,7 +310,7 @@ We have tried implementing some of the ideas from the various papers (but
 \begin_layout Itemize
 However, the core language from the papers seems quite different from UHC's
  core language.
- Implementing these ideas in UHC might not be straight-forward.
+ Implementing these ideas in UHC might not be straight-forward
 \end_layout
 
 \end_deeper

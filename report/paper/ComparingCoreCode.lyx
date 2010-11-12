@@ -68,6 +68,33 @@ name "sec:Analyzing-Core-and"
 
 \end_layout
 
+\begin_layout Standard
+In this section we will analyze the intermediate stages of compilation in
+ order to get a better understanding of how the compiler transforms the
+ code.
+\end_layout
+
+\begin_layout Standard
+During compilation, Haskell code is converted to C in several steps
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dijkstra:2007p590,Dijkstra:2009p587"
+
+\end_inset
+
+.
+ In the first step, Haskell code is converted to a desugared Haskell, called
+ Essential Haskell (EH).
+ Next, the EH is converted to Core code--an un-typed lambda calculus--in
+ multiple passes.
+ After the code has been fully converted to Core, the Core code is transformed
+ into a Grin (Graph reduction intermediate notation) representation, again
+ in multiple steps.
+ From here, the code can either be converted to directly to C, or it can
+ be transformed to LLVM, via a stage called Silly.
+ In this section, we are only concerned with the Core and Grin stages.
+\end_layout
+
 \begin_layout Subsection
 Approach
 \end_layout
