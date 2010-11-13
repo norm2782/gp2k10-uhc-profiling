@@ -69,14 +69,242 @@ name "sec:Improving-Performance-for"
 \end_layout
 
 \begin_layout Standard
-[TODO: Tell something about super comilers and fusion
+Although generic programming is recognized as an important technique to
+ minimize boilerplate code, that results from writing the same function
+ on different types, our study shows that there is still a significant performan
+ce penalty.
+ This performance penalty might even hinder the wide spread adoption of
+ generic programming libraries.
+ In our research we looked into symbolic evaluation and fusion of generic
+ function in particular, as a way to reduce the performance penalty.
+ 
+\end_layout
+
+\begin_layout Subsection
+Function fusion
+\end_layout
+
+\begin_layout Standard
+Directly translating the generic function into machine instructions leads
+ to very inefficient code, constantly converting between values and their
+ structural representation.
+ This problem is addressed by fusion.
+ Fusion is based on the consumer-producer model: a producer produces data
+ which is consumed by the consumer.
+ By combining (fusing) these consumer-producer pairs the need for intermediate
+ data is eliminated
 \begin_inset CommandInset citation
 LatexCommand cite
-key "Alimarine:2004p588,Bolingbroke:2010p589,Mitchell:2010p564"
+key "Alimarine:2004p588"
 
 \end_inset
 
-]
+.
+\end_layout
+
+\begin_layout Standard
+Fusion is a general purpose optimization technique, but employing fusion
+ to reduce the overhead of generic functions was introduced by Alimarine
+ and Smetsers
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Alimarine:2004p588"
+
+\end_inset
+
+.
+ They saw a reduction of both execution time and memory consumption of up
+ to 80 times compared to the non-optimized counterpart.
+ 
+\end_layout
+
+\begin_layout Standard
+As an example we consider the concatenation of three lists:
+\end_layout
+
+\begin_layout LyX-Code
+app l t = case l of Nil -> t Cons x xs -> Cons x (app xs t)
+\end_layout
+
+\begin_layout LyX-Code
+foo x y z = app (app x y) z
+\end_layout
+
+\begin_layout Standard
+The app(end) function takes two arguments, both lists, and appends the second
+ argument to the tail of the first argument.
+ The auxiliary function foo composes two applications of app together.
+ This results in a producer-consumer pair: the innermost call to app produces
+ a list, which is consumed by the outer most call to app.
+ This leads to unnecessary pattern matching in the consumer and unnecessary
+ rebuilding of the list out of its constructors in the producer.
+ This is eliminated by fusing the producer and consumer function together
+ into one new fused function:
+\end_layout
+
+\begin_layout LyX-Code
+app1app x y z = case x of Nil -> app y z Cons h t -> Cons h (app (app t
+ y) z )
+\end_layout
+
+\begin_layout LyX-Code
+foo x y z = app1app x y z
+\end_layout
+
+\begin_layout Standard
+The consumer-producer pair is now eliminated from the function body of foo,
+ but another consumer-producer pair is now introduced in the body of app1app,
+ again with app as both the consumer and the producer function.
+ Applying fusion for the second time leads to:
+\end_layout
+
+\begin_layout LyX-Code
+app1app x y z = case x of Nil -> app y z Cons h t -> Cons h (app1app t y
+ z) 
+\end_layout
+
+\begin_layout Standard
+The creation of the intermediate data which is passed from the producer
+ to the consumer in the original foo function is eliminated by employing
+ fusion.
+ 
+\end_layout
+
+\begin_layout Standard
+This small example shows that fusion is a general purpose optimization technique
+ that is especially useful for generic functions because it is common in
+ generic programming to constantly convert between values and their structural
+ representation, resulting in many producer-consumer pairs.
+ For more information about this we refer to 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Alimarine:2004p588"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Research implementation
+\end_layout
+
+\begin_layout Standard
+As part of our research we tried to implement fusion in Haskell using the
+ algorithms described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Alimarine:2004p588"
+
+\end_inset
+
+.
+ For this an untyped core functional language is defined with constructors
+ for pattern matching and higher-order functions:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset space \quad{}
+\end_inset
+
+
+\begin_inset Formula $E\,::=\, x\,|\, C\,\vec{E}\,|\, F\,\vec{E}\,|\, x\:\vec{E}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Set of function bodies:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset space \quad{}
+\end_inset
+
+
+\begin_inset Formula $B\,::=E\,|\,\mathrm{\mathit{\mathtt{case}}}\, x\,\mathrm{\mathtt{of}}\, C_{1}\,\vec{x}_{1}\,\rightarrow E_{1}\cdots C_{n}\,\vec{x}_{n}\,\rightarrow E_{n}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Function definition:
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset space \quad{}
+\end_inset
+
+
+\begin_inset Formula $F\,\vec{x}=B_{F}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The algorithm is only partially implemented and still has some known bugs.
+ 
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+- The fusion algorithm creates a new function when a producer-consumer pair
+ is merged together, but currently the fusion algorithm reuses the parameter
+ names of the producer and consumer function instead of creating new parameter
+ names.
+ This leads to faulty behavior when the set of parameter names of the producer
+ and the consumer function intersect.
+ Of course this always happens when a function is fused with itself.
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+- Currently a lack of testing in general undermines the trust we have in
+ the current implementation.
+\end_layout
+
+\begin_layout Standard
+For those interested the source code is available on github 
+\emph on
+https://github.com/norm2782/gp2k10-uhc-profiling
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
+Implementation in UHC
+\end_layout
+
+\begin_layout Standard
+Ultimately implementing fusion as an optimization step in UHC would be the
+ final goal.
+ However, the core language used by UHC is quite different from the core
+ language used by the fusion algorithm.
+ We see two different ways to solve this mismatch:
+\end_layout
+
+\begin_layout Enumerate
+Change the algorithm to work with the UHC core language.
+ The advantage here would be that implementing the algorithm in UHC would
+ be easier.
+ But expressing the algorithm in another language would mean than one has
+ to write the algorithm again.
+ This would most likely not be be straightforward.
+ 
+\end_layout
+
+\begin_layout Enumerate
+First, transform the core language in UHC to the core language used by the
+ fusion algorithm.
+ And then fuse functions where necessary, and finally transform the result
+ back to the UHC core language.
+ This would probably be the easiest solution.
+ The disadvantage is that converting between two different representations
+ might incur a significant performance hit.
+ 
 \end_layout
 
 \end_body
