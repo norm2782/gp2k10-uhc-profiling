@@ -25,8 +25,9 @@ main = (putStrLn . pp) $ snd $ runState (fuse app app 1) [app, foo]
 
 
 -- Definition 4.5
-raise :: Expr -> [Expr] -> State [Def] Expr
 
+-- TODO: Create raised function on line 35
+raise :: Expr -> [Expr] -> State [Def] Expr
 raise (Var x) ee                  = return $ App x ee
 raise (Cons n dd) ee              = return $ Cons n (dd ++ ee)
 raise (Func n dd) ee | delta <= 0 = return $ Func n (dd ++ ee)

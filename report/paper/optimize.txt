@@ -1,0 +1,66 @@
+Although generic programming is recognized as an important technique to minimize boilerplate code, that results from writing the same function on different types, our study shows that there is still a significant performance penalty. This performance penalty might even hinder the wide spread adoption of generic programming libraries. In our research we looked into symbolic evaluation, and fusion of generic function in particular, as a way to reduce the performance penalty. 
+
+Function fusion
+
+Directly translating the generic function in to machine instructions leads to very inefficient code, constantly converting between values and their structural representation. This problem is addressed by fusion. Fusion is based on the consumer-producer model: a producer produces data which is consumed by the consumer. By combining (fusing) these consumer-producer pair the need for intermediate data is eliminated. [REF robert's paper]
+
+Fusion is a general purpose optimization technique but employing fusion to reduce the overhead of generic functions was introduced by Alimarine and Smetsers [REF same]. They saw a reduction of both execution time and memory consumption up to 80 times compared to the non-optimized counterpart. 
+
+As an example we consider the concatenation of three lists:
+
+app l t = case l of 
+             Nil       -> t
+             Cons x xs -> Cons x (app xs t)
+
+foo x y z = app (app x y) z
+
+The app(end) function takes two arguments, both lists, and appends the second argument to the tail of the first argument. The auxiliary function foo composes two applications of app together. This results in a producer-consumer pair: the inner most call to app produces a list which is consumed by the outer most call to app. This leads to unnecessary pattern matching in the consumer and unnecessary rebuilding of the list out of its constructors in the producer. This is eliminated by fusing the producer and consumer function together into one new fused function:
+
+app1app x y z = case x of 
+                   Nil      -> app y z
+                   Cons h t -> Cons h (app (app t y) z )
+
+foo x y z = app1app x y z
+
+The consumer-producer pair is now eliminated from the function body of foo, but another consumer-producer pair is now introduced in the body of app1app, again with app as both the consumer and the producer function. Applying fusion for the second time leads to:
+
+app1app x y z = case x of 
+                   Nil      -> app y z 
+                   Cons h t -> Cons h (app1app t y z) 
+
+-- TODO Not so happy with this sentence, not sure if it is clear.
+Basically, the creation of the intermediate data which is passed from the producer to the consumer in the original foo function is eliminated by employing fusion. 
+
+This small example shows that fusion is a general purpose optimization technique but it's especially useful for generics functions because it's common in generic programming to constantly convert between values and their structural representation, resulting in many producer-consumer pairs. For more information about this we refer to [Report, first ref in Robert's paper].
+
+Research implementation
+
+As part of our research I tried to implement fusion in Haskell using the algorithms described in [REF Report, first ref of robert's paper]. For this an untyped core functional language is defined with constructors for pattern matching and higher order functions:
+
+-- TODO Some of these terms are vectors, display them in bold! See paper page 7.
+Function body:
+E ::= x | C E | F E | x E 
+B ::= E | case x of C1 x1 → E1 ... Cn xn -> En 
+
+Function definition:
+F x = B
+
+The algorithm is only partially implemented and still has some know bugs. 
+
+- The fusion algorithm creates a new function when a producer-consumer pair is merged together but currently the fusion algorithm reuses the parameter names of the producer and consumer function instead of creating new parameter names. This leads to faulty behavior when the set of parameter names of the producer and the consumer function intersect. Of course this always happens when a function is fused with itself.
+
+- Currently a lack of testing in general undermines the trust we have in the current implementation.
+
+For those interested the source code is available on github [REF].
+
+Implementation in UHC
+
+Of course, in the end implementing fusion as an optimization step in UHC would be our most precious goal. However the core language used by UHC is quite different from the core language used by the fusion algorithms. 
+
+-- TODO Maybe we can give the grammer of the core language used by UHC here? Anyone knows where to find this or want to search for it?
+
+We see two different ways to solve this mismatch:
+
+1. Change the algorithm to work with the UHC core language. Pros: Implementing in UHC will become easier. Cons: Expressing the algorithm in another language basically means than one has to write the algorithm again. This won't be a straightforward exercise. 
+
+2. First, transform the core language in UHC to the core language used by the fusion algorithm, then fuse functions where necessary, and finally transform the result back to the UHC core language. Pros: The author's have a feeling that this might be the most easy solution. Cons: By converting between two different representations one might incur a significant performance hit. 
