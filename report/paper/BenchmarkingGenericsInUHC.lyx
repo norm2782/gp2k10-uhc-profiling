@@ -84,8 +84,18 @@ Jurriën Stutterheim, Robert Kreuzer, Henk Erik van der Hoek
 \end_layout
 
 \begin_layout Abstract
-This is our abstract.
- It should be really abstract! [TODO: Write the actual abstract]
+The Utrecht Haskell Compiler (UHC) uses a generic deriving mechanism since
+ it's 1.10 release.
+ This makes it possible to derive instances for many more classes than the
+ six base classes in GHC.
+ The performance difference between generically derived instances and handwritte
+n versions has not been evaluated so far.
+ In this paper we present a representative set of benchmarks and an analysis
+ of our results.
+ Our findings show that the generic versions are substantially slower because
+ the generated core code is not being optimized by UHC.
+ We give an outline of potential optimizations.
+ 
 \end_layout
 
 \begin_layout Standard

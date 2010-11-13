@@ -841,7 +841,7 @@ Std.
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Benchmark results in miliseconds, including standard deviations.
+Benchmark results in milliseconds, including standard deviations.
  Lower is better.
 \end_layout
 
