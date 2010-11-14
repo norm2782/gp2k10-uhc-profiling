@@ -38,12 +38,47 @@ Research implementation
 As part of our research I tried to implement fusion in Haskell using the algorithms described in [REF Report, first ref of robert's paper]. For this an untyped core functional language is defined with constructors for pattern matching and higher order functions:
 
 -- TODO Some of these terms are vectors, display them in bold! See paper page 7.
+-- Put name in subscript in things like: Fname
+
 Function body:
-E ::= x | C E | F E | x E 
+E ::= x | Cname E | Fname E | x @ E 
 B ::= E | case x of C1 x1 → E1 ... Cn xn -> En 
 
 Function definition:
-F x = B
+Fname x = B
+
+Symbol 		Explanation 
+
+E		Expression 
+B		Function Body
+Fname x = B	Function definition
+
+While implementing the algorithms described in [REF, report] we found that the definition of (elegant M) is not complete. The (elegant M) and (sigma) functions are responsible for applying substitution rules on function bodies. This two step approach is necessary because in the core functional language an case expression is only allowed as a root expression of a function body. Nested case expression maybe result if we simply allow a variable to be substituted for a case expression. The tasks of the (elegant M) function is to merge the case expression on the root level before allowing the (sigma) function to preform a more straightforward substitution.
+
+The (elegant M) function as given however results in nested case expressions in some situations. As an example we take the app function discussed above. Fusing app with itself leads to:
+
+(elegant M)1 [case l of ...] <app(l,t) = case l of ...>
+
+This matches with the fifth and last alternative of the (elegant M) function. If we inline the call to (elegant M) this leads to:
+
+(elegant M)1 [case l of ...] <app(l,t) = case l of ...> = case l of 
+                                                             Nil       -> (elegant M)1 ["t"]       <case l of ...>
+                                                             Cons x xs -> (elegant M)1 [Fapp x xs] <case l of ...>
+
+We see that as a result the (elegant M) function recursively calls itself twice. The problem now occurs in the first recursive call in the Nil alternative. Inlining this call leads to:
+
+(elegant M)1 [case l of ...] <app(l,t) = case l of ...> = case l of 
+                                                             Nil       -> case t of 
+								Nil        -> t
+                                                                Cons x xs  -> Fapp x xs
+                                                             Cons x xs -> (elegant M)1 [Fapp x xs] <case l of ...>
+
+This is obviously not what was intended, since we end up with nested case expression. We solved this problem by differentiating between a recursive and a non-recursive call to (elegant M). In the case of a non-recursive call we follow the paper, in case of a recursive call we override this behavior with:
+
+(elegant M)i [y] <Fname x = case xi of> = Fname x1...i-1 * y xi+1...arity (Fname)
+ 
+
+
 
 The algorithm is only partially implemented and still has some know bugs. 
 

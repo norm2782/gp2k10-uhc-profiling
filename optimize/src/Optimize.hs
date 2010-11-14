@@ -12,7 +12,7 @@ import Core
 app :: Def
 app = Def (name "app" 2) [Var "l", Var "t"] 
     (Case "l" [
-        (Cons (name "Nil" 0) [], App "t" []),
+        (Cons (name "Nil" 0) [], Var "t"),
         (Cons (name "Cons" 2) [Var "x", Var "xs"], Cons (name "Cons" 2) [Var "x", Func (name "app" 2) [Var "xs", Var "t"]])
     ])
     
@@ -26,7 +26,7 @@ main = (putStrLn . pp) $ snd $ runState (fuse app app 1) [app, foo]
 
 -- Definition 4.5
 
--- TODO: Create raised function on line 35
+-- TODO: Uodate state on line 35
 raise :: Expr -> [Expr] -> State [Def] Expr
 raise (Var x) ee                  = return $ App x ee
 raise (Cons n dd) ee              = return $ Cons n (dd ++ ee)
@@ -64,20 +64,20 @@ apply (Subst new old) for | old == for = new
                           | otherwise  = Var for
 
 
-
 -- Definition 4.8
-match :: Int -> Expr -> Def -> State [Def] Expr
-match i (Var y)         (Def name arguments (Case x tuples)) = return $ Case y tuples
-match i f@(Func _ _)    (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [f] ++ (drop (i + 1) arguments))
-match i a@(App _ _)     (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [a] ++ (drop (i + 1) arguments))
-match i (Case y tuples) definition = mmap update tuples >>= wrap
+match :: Bool -> Int -> Expr -> Def -> State [Def] Expr
+match True  i (Var y)         (Def name arguments (Case x tuples)) = return $ Case y tuples
+match False i (Var y)         (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [Var y] ++ (drop (i + 1) arguments))
+match _     i f@(Func _ _)    (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [f] ++ (drop (i + 1) arguments))
+match _     i a@(App _ _)     (Def name arguments (Case x tuples)) = return $ Func name ((take i arguments) ++ [a] ++ (drop (i + 1) arguments))
+match _     i (Case y tuples) definition = mmap update tuples >>= wrap
     where
         wrap tuples = return $ Case y tuples
         
         update :: (Expr, Expr) -> State [Def] (Expr, Expr)
-        update (pattern, expr) = (match i expr definition) >>= (\updated -> return $ (pattern, updated))
+        update (pattern, expr) = (match True i expr definition) >>= (\updated -> return $ (pattern, updated))
 
-match i (Cons n ee)  (Def name arguments (Case x tuples)) = foldl (>>=) (return a) substitutions
+match _     i (Cons n ee)  (Def name arguments (Case x tuples)) = foldl (>>=) (return a) substitutions
     where
         (Cons _ yy, a) = head $ filter (\((Cons m _), _) -> m == n) tuples
         
@@ -96,10 +96,10 @@ fuse f@(Def fn xx (Case x tuples)) s@(Def sn zz b) i = State $ \state -> ((), [D
         k = length zz
         
         name         = N.substitute fn (decrease sn (m - k)) i
-        (body, more) = runState (match i b f) []
+        (body, more) = runState (match True i b f) []
 
         parameters = take i xx ++ zz ++ drop (i + 1) xx
 
 
 -- Definition 4.9 - 1b & 2
-fuse _ _ _ = error "def 1b and 2 are not yet implemented"
+fuse _ _ _ = error "def 4.9 1b and 2 are not yet implemented"
