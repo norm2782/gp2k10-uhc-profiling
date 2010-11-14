@@ -121,7 +121,7 @@ reference "sec:Benchmarking-methodology"
 
 \end_inset
 
- we describe how we setup our benchmarks.
+ we present our benchmarks and the results obtained from them.
  In section 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -130,14 +130,7 @@ reference "sec:Analyzing-Core-and"
 \end_inset
 
  we analyze the generated intermediate code.
- In section 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sec:Benchmarking-Generics"
-
-\end_inset
-
- we present our results and in section 
+ Finally, in section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Improving-Performance-for"

@@ -69,8 +69,8 @@ name "sec:Benchmarking-methodology"
 \end_layout
 
 \begin_layout Standard
-In this section we describe which testing framework we used and which tests
- we implemented.
+In this section we introduce our benchmarking tools, benchmark the generic
+ deriving mechanism of UHC and present the results obtained from this benchmark.
 \end_layout
 
 \begin_layout Subsection
@@ -79,7 +79,7 @@ Framework
 
 \begin_layout Standard
 In order to compare the performance of the generically derived instances
- and their handwritten counterparts we needed a testing framework.
+ and their handwritten counterparts a benchmark mechanism is required.
  We adapted the benchmarking framework used in the paper by Magalhães et
  al.
 \begin_inset CommandInset citation
@@ -89,10 +89,12 @@ key "Magalhaes:2010p568"
 \end_inset
 
 , to work with UHC instead of GHC.
- Only minor adjustments were necessary, which were mostly due to UHC not
- supporting the same flags as GHC.
- The framework allowed us to automate all the tests and to set the different
- optimization flags O0 - O3, which we wanted to compare.
+ Only minor adjustments were made to the benchmark tool itself.
+ The adjustments were mostly due to UHC using different flags from GHC.
+ The framework allowed for automating the running of the individual tests
+ on various optimization levels.
+ Since each optimization level might have an impact on the results, all
+ of them were benchmarked.
 \end_layout
 
 \begin_layout Standard
@@ -119,25 +121,89 @@ Eq
 \family typewriter
 Functor
 \family default
-, because they both use the generic deriving mechanism.
- Each test was implemented once using the generic deriving mechanism and
+, since these are relatively straight-forward to implement using the generic
+ deriving mechanism.
+ Each test is implemented once using the generic deriving mechanism and
  once with hand-written instances.
- For 
+\end_layout
+
+\begin_layout Standard
+For 
 \family typewriter
 Eq
 \family default
- we compared two big trees (~1.5 million nodes) and two big logical expressions,
- which were provided by the testing framework, for equality.
+ we compared two big trees--containing approximately 1.5 million nodes--and
+ two big logical expressions, which were provided by the testing framework,
+ for equality.
  For the 
 \family typewriter
 Functor
 \family default
- test, we mapped (+1) over a big tree.
+ test, we mapped (+1) over a similar big tree.
 \end_layout
 
 \begin_layout Standard
 Each of the six test cases was then run with the four different optimization
- levels for a total of 24 tests.
+ levels, resulting in a total of 24 tests.
+ The results of these are displayed in figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Benchmark-results-for"
+
+\end_inset
+
+.
+ Exact figures are available in Appendix 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sec:Benchmark-Results"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /Users/norm2782/Documents/UU/GP/Project/gp2k10-uhc-profiling/report/Results.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Benchmark-results-for"
+
+\end_inset
+
+Benchmark results for Eq/Tree, Eq/Logic and Functor/Tree on all optimization
+ levels.
+ Lower is better.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

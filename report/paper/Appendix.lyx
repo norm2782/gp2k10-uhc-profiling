@@ -60,10 +60,31 @@
 \begin_layout Section
 \start_of_appendix
 Benchmark Results
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Benchmark-Results"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Results are rounded to one decimal.
+Table 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:Benchmark-results-in"
+
+\end_inset
+
+ presents the results of our benchmarking efforts.
+ Each row represents a test run on a specific optimization level.
+ One row is divided into two sub-rows: the time in milliseconds and the
+ standard deviation over all of the tests.
+ Each column represents a specific test for a specific data structure.
+ A column is divided into two sub-columns: one for handwritten code and
+ one for derived code.
+ Results are rounded to one decimal.
 \end_layout
 
 \begin_layout Standard
@@ -841,6 +862,12 @@ Std.
 \begin_inset Caption
 
 \begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Benchmark-results-in"
+
+\end_inset
+
 Benchmark results in milliseconds, including standard deviations.
  Lower is better.
 \end_layout

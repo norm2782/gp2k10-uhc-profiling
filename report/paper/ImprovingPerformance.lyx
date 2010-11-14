@@ -139,11 +139,26 @@ foo x y z = app (app x y) z
 \end_layout
 
 \begin_layout Standard
-The app(end) function takes two arguments, both lists, and appends the second
- argument to the tail of the first argument.
- The auxiliary function foo composes two applications of app together.
- This results in a producer-consumer pair: the innermost call to app produces
- a list, which is consumed by the outer most call to app.
+The 
+\family typewriter
+app
+\family default
+(end) function takes two arguments, both lists, and appends the second argument
+ to the tail of the first argument.
+ The auxiliary function 
+\family typewriter
+foo
+\family default
+ composes two applications of app together.
+ This results in a producer-consumer pair: the innermost call to 
+\family typewriter
+app
+\family default
+ produces a list, which is consumed by the outer most call to 
+\family typewriter
+app
+\family default
+.
  This leads to unnecessary pattern matching in the consumer and unnecessary
  rebuilding of the list out of its constructors in the producer.
  This is eliminated by fusing the producer and consumer function together
@@ -167,9 +182,19 @@ foo x y z = app1app x y z
 \end_layout
 
 \begin_layout Standard
-The consumer-producer pair is now eliminated from the function body of foo,
- but another consumer-producer pair is now introduced in the body of app1app,
- again with app as both the consumer and the producer function.
+The consumer-producer pair is now eliminated from the function body of 
+\family typewriter
+foo
+\family default
+, but another consumer-producer pair is now introduced in the body of 
+\family typewriter
+app1app
+\family default
+, again with 
+\family typewriter
+app
+\family default
+ as both the consumer and the producer function.
  Applying fusion for the second time leads to:
 \end_layout
 

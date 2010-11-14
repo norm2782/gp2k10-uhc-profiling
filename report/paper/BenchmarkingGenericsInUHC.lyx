@@ -131,16 +131,6 @@ filename "ComparingCoreCode.lyx"
 \begin_layout Standard
 \begin_inset CommandInset include
 LatexCommand input
-filename "BenchmarkResults.lyx"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand input
 filename "ImprovingPerformance.lyx"
 
 \end_inset
