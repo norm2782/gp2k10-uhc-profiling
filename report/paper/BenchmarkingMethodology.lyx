@@ -80,9 +80,8 @@ Framework
 \begin_layout Standard
 In order to compare the performance of the generically derived instances
  and their handwritten counterparts we needed a testing framework.
- We adapted the benchmarking framework from J.
- P.
- Magalhães, which he used in his paper 
+ We adapted the benchmarking framework used in the paper by Magalhães et
+ al.
 \begin_inset CommandInset citation
 LatexCommand cite
 key "Magalhaes:2010p568"

@@ -123,7 +123,15 @@ As an example we consider the concatenation of three lists:
 \end_layout
 
 \begin_layout LyX-Code
-app l t = case l of Nil -> t Cons x xs -> Cons x (app xs t)
+app l t = case l of
+\end_layout
+
+\begin_layout LyX-Code
+            Nil -> t
+\end_layout
+
+\begin_layout LyX-Code
+            Cons x xs -> Cons x (app xs t)
 \end_layout
 
 \begin_layout LyX-Code
@@ -143,8 +151,15 @@ The app(end) function takes two arguments, both lists, and appends the second
 \end_layout
 
 \begin_layout LyX-Code
-app1app x y z = case x of Nil -> app y z Cons h t -> Cons h (app (app t
- y) z )
+app1app x y z = case x of
+\end_layout
+
+\begin_layout LyX-Code
+                  Nil -> app y z
+\end_layout
+
+\begin_layout LyX-Code
+                  Cons h t -> Cons h (app (app t y) z )
 \end_layout
 
 \begin_layout LyX-Code
@@ -159,8 +174,15 @@ The consumer-producer pair is now eliminated from the function body of foo,
 \end_layout
 
 \begin_layout LyX-Code
-app1app x y z = case x of Nil -> app y z Cons h t -> Cons h (app1app t y
- z) 
+app1app x y z = case x of
+\end_layout
+
+\begin_layout LyX-Code
+                  Nil -> app y z
+\end_layout
+
+\begin_layout LyX-Code
+                  Cons h t -> Cons h (app1app t y z) 
 \end_layout
 
 \begin_layout Standard
@@ -267,10 +289,24 @@ The algorithm is only partially implemented and still has some known bugs.
 \end_layout
 
 \begin_layout Standard
-For those interested the source code is available on github 
+For those interested the source code is available on GitHub
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
 \emph on
-https://github.com/norm2782/gp2k10-uhc-profiling
-\emph default
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/norm2782/gp2k10-uhc-profiling"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
 .
 \end_layout
 
